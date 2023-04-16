@@ -130,10 +130,9 @@ public abstract class BaseFragment extends Fragment {
             mBind.unbind();
         }
         release();
-
     }
 
-    private void release() {
+    protected void release() {
         //释放资源
     }
 

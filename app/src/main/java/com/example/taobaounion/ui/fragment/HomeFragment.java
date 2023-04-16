@@ -35,7 +35,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     protected void initView(View rootView) {
 
         //创建适配器
-        //Return a private FragmentManager for placing and managing Fragments inside of this Fragment.
+        //Return a private FragmentManager for placing and managing Fragments inside this Fragment.
         mHomePagerAdapter = new HomePagerAdapter(getChildFragmentManager());
         //给viewPager设置适配器
         mHomePager.setAdapter(mHomePagerAdapter);
@@ -95,7 +95,8 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         }
     }
 
-    public void release(){
+    @Override
+    protected void release() {
         //释放资源
         if (mHomePresenter != null) {
             mHomePresenter.unRegisterCallback(this);
