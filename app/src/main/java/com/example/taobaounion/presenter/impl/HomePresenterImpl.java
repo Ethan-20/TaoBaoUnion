@@ -5,7 +5,7 @@ import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.presenter.iHomePresenter;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.RetrofitManager;
-import com.example.taobaounion.view.IHomeCallback;
+import com.example.taobaounion.view.iHomeCallback;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 
 public class HomePresenterImpl implements iHomePresenter {
 
-    private IHomeCallback mCallback = null;
+    private iHomeCallback mCallback = null;
 
     @Override
     public void getCategories() {
@@ -67,12 +67,12 @@ public class HomePresenterImpl implements iHomePresenter {
 
     //如果有多个callback对象,需要用数组来统一管理
     @Override
-    public void registerCallback(IHomeCallback callback) {
+    public void registerViewCallback(iHomeCallback callback) {
         this.mCallback = callback;
     }
 
     @Override
-    public void unRegisterCallback(IHomeCallback callback) {
+    public void unRegisterViewCallback(iHomeCallback callback) {
         this.mCallback = null;
     }
 

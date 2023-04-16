@@ -1,14 +1,11 @@
 package com.example.taobaounion.presenter;
 
-import com.example.taobaounion.view.IHomeCallback;
+import com.example.taobaounion.base.iBasePresenter;
+import com.example.taobaounion.view.iHomeCallback;
 
-public interface iHomePresenter {
+public interface iHomePresenter extends iBasePresenter<iHomeCallback> {
     //获取商品分类
     void getCategories();
 
-    //注册UI通知接口
-    void registerCallback(IHomeCallback callback);
 
-    //注销UI通知接口
-    void unRegisterCallback(IHomeCallback callback);
 }
