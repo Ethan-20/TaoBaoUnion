@@ -29,7 +29,9 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.base_fragment_layout, container, false);
+        View rootView = loadRootView(inflater,container);
+        //由于HomeFragment重写了loadRootView()方法,所以加载HomeFragment时rootView是base_home_fragment_layout
+        //而其他的Fragment则还是base_fragment_layout
         mBaseContainer = rootView.findViewById(R.id.base_container);
         loadStatesView(inflater,container);
         mBind = ButterKnife.bind(this, rootView);
@@ -38,6 +40,10 @@ public abstract class BaseFragment extends Fragment {
         loadData();
         return rootView;
 
+    }
+
+    protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.base_fragment_layout, container, false);
     }
 
     /**

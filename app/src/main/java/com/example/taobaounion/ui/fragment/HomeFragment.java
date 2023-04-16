@@ -1,6 +1,8 @@
 package com.example.taobaounion.ui.fragment;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import com.example.taobaounion.R;
@@ -45,6 +47,11 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     protected void initPresenter() {
         mHomePresenter = new HomePresenterImpl();
         mHomePresenter.registerCallback(this);
+    }
+
+    @Override
+    protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.base_home_fragment_layout, container,false);
     }
 
     //加载数据
