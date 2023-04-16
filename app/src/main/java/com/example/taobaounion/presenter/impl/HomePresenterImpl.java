@@ -49,7 +49,7 @@ public class HomePresenterImpl implements iHomePresenter {
                     //请求失败
                     LogUtils.i(HomePresenterImpl.this, "请求失败.....");
                     if (mCallback != null) {
-                        mCallback.onNetworkError();
+                        mCallback.onError();
                     }
                 }
             }
@@ -59,7 +59,7 @@ public class HomePresenterImpl implements iHomePresenter {
                 //失败结果:
                 LogUtils.e(this, "请求错误.....");
                 if (mCallback != null) {
-                    mCallback.onNetworkError();
+                    mCallback.onError();
                 }
             }
         });

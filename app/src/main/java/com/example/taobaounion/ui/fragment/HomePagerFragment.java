@@ -18,6 +18,7 @@ import java.util.List;
 public class HomePagerFragment extends BaseFragment implements iCategoryPagerCallback {
 
     private iCategoryPagerPresenter mCategoryPagerPresenter;
+    private int mMaterialId;
 
     //在adapter中需要根据category来生成HomePagerFragment,所以在这里创建一个方法来返回HomePagerFragment
     public static HomePagerFragment newInstance(Categories.DataBean category){
@@ -43,11 +44,13 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     protected void loadData() {
         Bundle arguments = getArguments();
         String title = arguments.getString(Constants.KEY_HOME_PAGER_TITLE);
-        int materialId = arguments.getInt(Constants.KEY_HOME_PAGER_MATERIAL_ID);
+        mMaterialId = arguments.getInt(Constants.KEY_HOME_PAGER_MATERIAL_ID);
         //TODO:加载数据
         LogUtils.d(this,"title---->>>>"+title);
-        LogUtils.d(this,"materialId---->>>>"+materialId);
-        mCategoryPagerPresenter.getContentByCategoryId(materialId);
+        LogUtils.d(this,"materialId---->>>>"+ mMaterialId);
+        if (mCategoryPagerPresenter != null) {
+            mCategoryPagerPresenter.getContentByCategoryId(mMaterialId);
+        }
     }
 
     @Override
@@ -62,31 +65,42 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     public void onContentLoad(List<HomePageContent.DataBean> contents) {
+        //数据加载到了
+        //TODO :更新UI
+        setupState(State.SUCCESS);
+    }
+
+    @Override
+    public int getCategoryId() {
+        return mMaterialId;
+    }
+
+    @Override
+    public void onLoading() {
+        setupState(State.LOADING);
+    }
+
+
+    /**
+     * 网络错误
+     */
+    @Override
+    public void onError() {
+        setupState(State.ERROR);
+    }
+
+    @Override
+    public void onEmpty() {
+        setupState(State.EMPTY);
+    }
+
+    @Override
+    public void onLoadMoreError() {
 
     }
 
     @Override
-    public void onLoading(int categoryId) {
-
-    }
-
-    @Override
-    public void onError(int categoryId) {
-
-    }
-
-    @Override
-    public void onEmpty(int categoryId) {
-
-    }
-
-    @Override
-    public void onLoadMoreError(int categoryId) {
-
-    }
-
-    @Override
-    public void onLoadMoreEmpty(int categoryId) {
+    public void onLoadMoreEmpty() {
 
     }
 
