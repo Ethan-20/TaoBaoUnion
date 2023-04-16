@@ -6,4 +6,6 @@
     <string name="text_search">搜索</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_network_error_tips">网络出错,请点击重试....</string>
+    <string name="text_click_to_search_tips">搜搜你想买的宝贝</string>
 </resources>

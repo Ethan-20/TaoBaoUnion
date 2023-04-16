@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.example.taobaounion.R;
+import com.example.taobaounion.utils.LogUtils;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -25,6 +27,21 @@ public abstract class BaseFragment extends Fragment {
     }
     private Unbinder mBind;
     private FrameLayout mBaseContainer;
+
+    @OnClick(R.id.network_error_tips)
+    public void retry(){
+        //点击了重新加载内容
+        LogUtils.d(this,"onRetry...");
+        onRetryClick();
+    }
+
+    /**
+     * 如果子fragment需要知道网络出错以后的点击,那覆盖此方法即可
+     */
+    protected void onRetryClick() {
+
+    }
+
 
     @Nullable
     @Override

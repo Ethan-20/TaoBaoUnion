@@ -87,6 +87,14 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     }
 
 
+    @Override
+    protected void onRetryClick() {
+        //网络错误,点击了重试
+        if (mHomePresenter != null) {
+            mHomePresenter.getCategories();
+        }
+    }
+
     public void release(){
         //释放资源
         if (mHomePresenter != null) {

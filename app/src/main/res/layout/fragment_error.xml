@@ -5,10 +5,25 @@
               android:gravity="center"
               android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/network_error_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:src="@mipmap/wifi"
+        android:layout_gravity="center_horizontal"/>
+
     <TextView
-        android:text="页面加载出错...."
+        android:text="@string/text_network_error_tips"
+        android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    </LinearLayout>
 </LinearLayout>
 

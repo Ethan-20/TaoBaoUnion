@@ -37,7 +37,7 @@
             android:paddingRight="10dp"
             android:focusable="false"
             android:textSize="16sp"
-            android:hint="click to search"
+            android:hint="@string/text_click_to_search_tips"
             android:background="@drawable/shape_edit_box_bg"
             android:layout_toRightOf="@id/logo"
             android:layout_toLeftOf="@id/scan_icon" />

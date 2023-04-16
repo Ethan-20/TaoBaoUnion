@@ -16,4 +16,9 @@ public class HomePagerFragment extends BaseFragment {
     protected int getRootViewResId() {
         return R.layout.fragment_home_pager;
     }
+
+    @Override
+    protected void initView(View rootView) {
+        setupState(State.SUCCESS);
+    }
 }
