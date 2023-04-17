@@ -56,14 +56,14 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     private LooperPagerAdapter mLooperPagerAdapter;
 
     //在adapter中需要根据category来生成HomePagerFragment,所以在这里创建一个方法来返回HomePagerFragment
-    public static HomePagerFragment newInstance(Categories.DataBean category){
+    public static HomePagerFragment newInstance(Categories.DataBean category) {
 
         HomePagerFragment homePagerFragment = new HomePagerFragment();
         //通过bundle来保存要传输的数据
         Bundle bundle = new Bundle();
         //为bundle设置category的属性
         bundle.putString(Constants.KEY_HOME_PAGER_TITLE, category.getTitle());
-        bundle.putInt(Constants.KEY_HOME_PAGER_MATERIAL_ID,category.getId());
+        bundle.putInt(Constants.KEY_HOME_PAGER_MATERIAL_ID, category.getId());
         //为homePagerFragment绑定bundle
         homePagerFragment.setArguments(bundle);
         return homePagerFragment;
@@ -81,8 +81,8 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         String title = arguments.getString(Constants.KEY_HOME_PAGER_TITLE);
         mMaterialId = arguments.getInt(Constants.KEY_HOME_PAGER_MATERIAL_ID);
         //TODO:加载数据
-        LogUtils.d(this,"title---->>>>"+title);
-        LogUtils.d(this,"materialId---->>>>"+ mMaterialId);
+        LogUtils.d(this, "title---->>>>" + title);
+        LogUtils.d(this, "materialId---->>>>" + mMaterialId);
         if (mCategoryPagerPresenter != null) {
             mCategoryPagerPresenter.getContentByCategoryId(mMaterialId);
         }
@@ -167,27 +167,30 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     @Override
     public void onLooperListLoaded(List<HomePageContent.DataBean> looperContents) {
         Context context = getContext();
-        LogUtils.d(this,"looper_size---->"+looperContents.size());
+        LogUtils.d(this, "looper_size---->" + looperContents.size());
         mLooperPagerAdapter.setData(looperContents);
         GradientDrawable pointDrawable = (GradientDrawable) context.getDrawable(R.drawable.shape_indicator_point);
         GradientDrawable focusedPointDrawable = (GradientDrawable) context.getDrawable(R.drawable.shape_indicator_point);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            pointDrawable.setColor(context.getColor(R.color.colorWhite));
-        }
+        pointDrawable.setColor(context.getColor(R.color.colorWhite));
+        //解决第一张图不是真正的第一张图的问题: 用中间值减去取模之后的值,再取模就是0了
+        int dx = (Integer.MAX_VALUE / 2) % looperContents.size();
+        int targetCenterPosition = (Integer.MAX_VALUE / 2) - dx;
+        //设置到中间点(解决从第一张轮播图向左滑动时不能滑动的问题)
+        looperPager.setCurrentItem(targetCenterPosition);
+        looperPointContainer.removeAllViews();
         //添加点
         for (int i = 0; i < looperContents.size(); i++) {
             View point = new View(context);
             //LayoutParams接收的是px,一半给的设计图都是dp,要用工具类转一下
             int size = SizeUtils.dip2px(context, 8);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size, size);
-            layoutParams.leftMargin = SizeUtils.dip2px(context,5);
-            layoutParams.rightMargin = SizeUtils.dip2px(context,5);
+            layoutParams.leftMargin = SizeUtils.dip2px(context, 5);
+            layoutParams.rightMargin = SizeUtils.dip2px(context, 5);
             point.setLayoutParams(layoutParams);
-            if(i==1)
-            {
-            point.setBackground(focusedPointDrawable);
-            }else{
-            point.setBackground(pointDrawable );
+            if (i == 1) {
+                point.setBackground(focusedPointDrawable);
+            } else {
+                point.setBackground(pointDrawable);
             }
             looperPointContainer.addView(point);
         }

@@ -22,8 +22,10 @@ public class LooperPagerAdapter extends PagerAdapter {
     @NotNull
     @Override
     public Object instantiateItem(@NonNull @NotNull ViewGroup container, int position) {
+        //处理越界问题
+        int realPosition = position % mData.size();
         Context context = container.getContext();
-        HomePageContent.DataBean dataBean = mData.get(position);
+        HomePageContent.DataBean dataBean = mData.get(realPosition);
         String CoverUrl = UrlUtils.getCoverPath(dataBean.getPict_url());
         //采用代码生成ImageView的方式
         ImageView iv = new ImageView(context);
@@ -45,7 +47,7 @@ public class LooperPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
