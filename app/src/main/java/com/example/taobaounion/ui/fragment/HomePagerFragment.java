@@ -23,6 +23,7 @@ import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.SizeUtils;
+import com.example.taobaounion.utils.ToastUtils;
 import com.example.taobaounion.view.iCategoryPagerCallback;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -113,6 +114,11 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
                 }
 
             }
+
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                super.onRefresh(refreshLayout);
+            }
         });
     }
 
@@ -202,6 +208,12 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         setupState(State.LOADING);
     }
 
+    @Override
+    protected void onRetryClick() {
+        if (mPagerPresenter != null) {
+            mPagerPresenter.getContentByCategoryId(mMaterialId);
+        }
+    }
 
     /**
      * 网络错误
@@ -218,11 +230,18 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     public void onLoadMoreError() {
-
+        ToastUtils.showToast("网络异常请重试!!");
+        if (twinklingRefreshLayout != null) {
+            twinklingRefreshLayout.finishLoadmore();
+        }
     }
 
     @Override
     public void onLoadMoreEmpty() {
+        ToastUtils.showToast("已无更多商品!");
+        if (twinklingRefreshLayout != null) {
+            twinklingRefreshLayout.finishLoadmore();
+        }
 
     }
 
@@ -233,7 +252,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         if (twinklingRefreshLayout != null) {
             twinklingRefreshLayout.finishLoadmore();
         }
-        Toast.makeText(getContext(), "加载了" + contents.size() + "条内容", Toast.LENGTH_SHORT).show();
+        ToastUtils.showToast("加载了" + contents.size() + "件商品");
     }
 
     @Override
