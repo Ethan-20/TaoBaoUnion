@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_navigation_bar)
     public BottomNavigationView mNavigationView;
     private HomeFragment mHomeFragment;
-    private SelecetedFragment mSelecetedFragment;
+    private SelecetedFragment mSelectedFragment;
     private RedPacketFragment mRedPacketFragment;
     private SearchFragment mSearchFragment;
     private FragmentManager mFm;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFragments() {
         mHomeFragment = new HomeFragment();
-        mSelecetedFragment = new SelecetedFragment();
+        mSelectedFragment = new SelecetedFragment();
         mRedPacketFragment = new RedPacketFragment();
         mSearchFragment = new SearchFragment();
         //Return the FragmentManager for interacting with fragments associated with this activity.
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.selected:
                         LogUtils.i(this,"切换到精选");
-                        switchFragment(mSelecetedFragment);
+                        switchFragment(mSelectedFragment);
                         break;
                     case R.id.red_packet:
                         LogUtils.w(this,"切换到特惠");
