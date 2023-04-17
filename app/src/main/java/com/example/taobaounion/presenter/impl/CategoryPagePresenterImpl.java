@@ -31,6 +31,7 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
     private ArrayList<iCategoryPagerCallback> callbackList = new ArrayList<>();
     public static final int DEFAULT_PAGE = 1;
     private static iCategoryPagerPresenter ourInstance = null;
+    private Integer mCurrentPage;
 
     public static iCategoryPagerPresenter getInstance() {
 
@@ -57,18 +58,13 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
                 callback.onLoading();
             }
         }
-        //内容由网络提供 ,先去网络层,拿到数据先 -> model->Api
-        Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
-        Api api = retrofit.create(Api.class);
         //通过pageInfo来控制申请第几页的内容
         Integer targetPage = pagesInfo.get(categoryId);
         if (targetPage == null) {
             targetPage = DEFAULT_PAGE;
             pagesInfo.put(categoryId, targetPage);
         }
-        String homePagerUrl = UrlUtils.createHomePagerUrl(categoryId, targetPage);
-        LogUtils.d(CategoryPagePresenterImpl.this, "homePagerUrl--->" + homePagerUrl);
-        Call<HomePageContent> task = api.getHomePageContent(homePagerUrl);
+        Call<HomePageContent> task = createTask(categoryId, targetPage);
         task.enqueue(new Callback<HomePageContent>() {
             @Override
             public void onResponse(Call<HomePageContent> call, Response<HomePageContent> response) {
@@ -90,6 +86,16 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
                 handleNetworkError(categoryId);
             }
         });
+    }
+
+    private  Call<HomePageContent> createTask(int categoryId, Integer targetPage) {
+        //内容由网络提供 ,先去网络层,拿到数据先 -> model->Api
+        Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
+        Api api = retrofit.create(Api.class);
+        String homePagerUrl = UrlUtils.createHomePagerUrl(categoryId, targetPage);
+        LogUtils.d(CategoryPagePresenterImpl.this, "homePagerUrl--->" + homePagerUrl);
+        Call<HomePageContent> task = api.getHomePageContent(homePagerUrl);
+        return task;
     }
 
     private void handleNetworkError(int categoryId) {
@@ -117,13 +123,78 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
         }
     }
 
-    @Override
-    public void loadMore() {
 
+    //加载更多内容
+    @Override
+    public void loadMore(int categoryId) {
+        //1 拿到当前页面
+
+        mCurrentPage = pagesInfo.get(categoryId);
+        if (mCurrentPage == null) {
+            mCurrentPage = 1;
+        }
+        //2 页码++
+        mCurrentPage++;
+        //3 加载数据
+        Call<HomePageContent> task = createTask(categoryId, mCurrentPage);
+        //4 处理结果
+        task.enqueue(new Callback<HomePageContent>() {
+            @Override
+            public void onResponse(Call<HomePageContent> call, Response<HomePageContent> response) {
+                //成功
+                int code = response.code();
+                LogUtils.d(CategoryPagePresenterImpl.this, "code====>" + code);
+                if (code== HttpURLConnection.HTTP_OK) {
+                    //请求成功
+                    HomePageContent result = response.body();
+                    handleLoadMoreResult(result,categoryId);
+                }
+                else {
+                    //请求失败
+                    handleLoadMoreError(categoryId);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<HomePageContent> call, Throwable t) {
+                //出错
+                LogUtils.d(this, "onFailure===" + t);
+                handleLoadMoreError(categoryId);
+            }
+        });
+    }
+
+    //处理加载更多的结果
+    private void handleLoadMoreResult(HomePageContent result, int categoryId) {
+        for (iCategoryPagerCallback callback : callbackList) {
+            if (callback.getCategoryId()==categoryId) {
+                if (result==null||result.getData().size()==0) {
+                    callback.onLoadMoreEmpty();
+                }
+                else {
+                    callback.onLoadMoreLoaded(result.getData());
+                }
+            }
+        }
+    }
+
+    /**
+     * 加载更多时出错处理
+     * 失败了要把页面-- 回到之前的状态,并放入到map中
+     */
+    private void handleLoadMoreError(int categoryId) {
+        mCurrentPage--;
+        pagesInfo.put(categoryId, mCurrentPage);
+        for (iCategoryPagerCallback callback : callbackList) {
+            if (callback.getCategoryId()==categoryId) {
+                callback.onLoadMoreError();
+            }
+        }
     }
 
     @Override
-    public void reload() {
+    public void reload(int categoryId) {
 
     }
 

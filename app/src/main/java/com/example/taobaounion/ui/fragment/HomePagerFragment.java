@@ -2,7 +2,6 @@ package com.example.taobaounion.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,6 +23,8 @@ import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.SizeUtils;
 import com.example.taobaounion.view.iCategoryPagerCallback;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.List;
 
 public class HomePagerFragment extends BaseFragment implements iCategoryPagerCallback {
 
-    private iCategoryPagerPresenter mCategoryPagerPresenter;
+    private iCategoryPagerPresenter mPagerPresenter;
     private int mMaterialId;
 
     @BindView(R.id.home_pager_content_list)
@@ -46,6 +47,9 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @BindView(R.id.looper_point_container)
     public LinearLayout looperPointContainer;
+
+    @BindView(R.id.home_pager_refresh)
+    public TwinklingRefreshLayout twinklingRefreshLayout;
 
 
     private HomePagerContentAdapter mContentAdapter;
@@ -67,13 +71,14 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     protected void initListener() {
+
+        //轮播图的监听
         looperPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             //滑动页面时
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-
             //页面被展示时
             @Override
             public void onPageSelected(int position) {
@@ -95,6 +100,18 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
             }
         });
+
+        //设置加载更多监听
+        twinklingRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                LogUtils.d(HomePagerFragment.this, "onLoadMore()........");
+               //去加载更多的内容
+                if (mPagerPresenter != null) {
+                    mPagerPresenter.loadMore(mMaterialId);
+                }
+            }
+        });
     }
 
     /**
@@ -114,8 +131,8 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     protected void initPresenter() {
-        mCategoryPagerPresenter = CategoryPagePresenterImpl.getInstance();
-        mCategoryPagerPresenter.registerViewCallback(this);
+        mPagerPresenter = CategoryPagePresenterImpl.getInstance();
+        mPagerPresenter.registerViewCallback(this);
     }
 
     @Override
@@ -126,8 +143,8 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         //TODO:加载数据
         LogUtils.d(this, "title---->>>>" + title);
         LogUtils.d(this, "materialId---->>>>" + mMaterialId);
-        if (mCategoryPagerPresenter != null) {
-            mCategoryPagerPresenter.getContentByCategoryId(mMaterialId);
+        if (mPagerPresenter != null) {
+            mPagerPresenter.getContentByCategoryId(mMaterialId);
         }
         if (currentCategoryTitleTv != null) {
             currentCategoryTitleTv.setText(title);
@@ -157,6 +174,10 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         //设置recyclerView的适配器
         mContentList.setAdapter(mContentAdapter);
         looperPager.setAdapter(mLooperPagerAdapter);
+        //设置Refresh相关属性
+//        twinklingRefreshLayout.setEnableRefresh(false); //上拉无效
+        twinklingRefreshLayout.setEnableLoadmore(true); //下拉有效(默认为true)
+//        twinklingRefreshLayout.setBottomView();
 
     }
 
@@ -239,8 +260,8 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     protected void release() {
-        if (mCategoryPagerPresenter != null) {
-            mCategoryPagerPresenter.unRegisterViewCallback(this);
+        if (mPagerPresenter != null) {
+            mPagerPresenter.unRegisterViewCallback(this);
         }
     }
 }

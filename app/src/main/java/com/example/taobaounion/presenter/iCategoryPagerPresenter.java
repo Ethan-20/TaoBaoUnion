@@ -10,9 +10,9 @@ public interface iCategoryPagerPresenter extends iBasePresenter<iCategoryPagerCa
      */
     void getContentByCategoryId(int categoryId);
 
-    void loadMore();
+    void loadMore(int categoryId);
 
-    void reload();
+    void reload(int categoryId);
 
 
 }
