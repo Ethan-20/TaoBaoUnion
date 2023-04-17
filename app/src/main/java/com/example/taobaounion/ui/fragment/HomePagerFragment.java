@@ -1,8 +1,15 @@
 package com.example.taobaounion.ui.fragment;
 
+import android.content.Context;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +26,7 @@ import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
+import com.example.taobaounion.utils.SizeUtils;
 import com.example.taobaounion.view.iCategoryPagerCallback;
 import org.jetbrains.annotations.NotNull;
 
@@ -33,8 +41,17 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     @BindView(R.id.home_pager_content_list)
     public RecyclerView mContentList;
 
+    //轮播图
     @BindView(R.id.looper_pager)
     public ViewPager looperPager;
+
+    @BindView(R.id.home_pager_title)
+    public TextView currentCategoryTitleTv;
+
+    @BindView(R.id.looper_point_container)
+    public LinearLayout looperPointContainer;
+
+
     private HomePagerContentAdapter mContentAdapter;
     private LooperPagerAdapter mLooperPagerAdapter;
 
@@ -69,6 +86,10 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         if (mCategoryPagerPresenter != null) {
             mCategoryPagerPresenter.getContentByCategoryId(mMaterialId);
         }
+        if (currentCategoryTitleTv != null) {
+            currentCategoryTitleTv.setText(title);
+        }
+
     }
 
     @Override
@@ -93,7 +114,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         //设置recyclerView的适配器
         mContentList.setAdapter(mContentAdapter);
         looperPager.setAdapter(mLooperPagerAdapter);
-        //
+
     }
 
     @Override
@@ -144,9 +165,32 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     }
 
     @Override
-    public void onLooperListLoaded(List<HomePageContent.DataBean> contents) {
-        LogUtils.d(this,"looper_size---->"+contents.size());
-        mLooperPagerAdapter.setData(contents);
+    public void onLooperListLoaded(List<HomePageContent.DataBean> looperContents) {
+        Context context = getContext();
+        LogUtils.d(this,"looper_size---->"+looperContents.size());
+        mLooperPagerAdapter.setData(looperContents);
+        GradientDrawable pointDrawable = (GradientDrawable) context.getDrawable(R.drawable.shape_indicator_point);
+        GradientDrawable focusedPointDrawable = (GradientDrawable) context.getDrawable(R.drawable.shape_indicator_point);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            pointDrawable.setColor(context.getColor(R.color.colorWhite));
+        }
+        //添加点
+        for (int i = 0; i < looperContents.size(); i++) {
+            View point = new View(context);
+            //LayoutParams接收的是px,一半给的设计图都是dp,要用工具类转一下
+            int size = SizeUtils.dip2px(context, 8);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size, size);
+            layoutParams.leftMargin = SizeUtils.dip2px(context,5);
+            layoutParams.rightMargin = SizeUtils.dip2px(context,5);
+            point.setLayoutParams(layoutParams);
+            if(i==1)
+            {
+            point.setBackground(focusedPointDrawable);
+            }else{
+            point.setBackground(pointDrawable );
+            }
+            looperPointContainer.addView(point);
+        }
     }
 
     @Override

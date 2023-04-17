@@ -9,5 +9,6 @@
     <color name="colorTabNormal">#aaffffff</color>
     <color name="color_tmall">#D0021B</color>
     <color name="colorPageBg">#EFEEEE</color>
+    <color name="colorWhite">#EFEEEE</color>
 
 </resources>
