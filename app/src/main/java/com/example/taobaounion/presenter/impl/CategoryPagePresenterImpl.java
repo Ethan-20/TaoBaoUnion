@@ -147,6 +147,7 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
                 if (code== HttpURLConnection.HTTP_OK) {
                     //请求成功
                     HomePageContent result = response.body();
+//                    LogUtils.d(CategoryPagePresenterImpl.this,"result---->"+result);
                     handleLoadMoreResult(result,categoryId);
                 }
                 else {
@@ -163,6 +164,7 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
                 handleLoadMoreError(categoryId);
             }
         });
+        pagesInfo.put(categoryId, mCurrentPage);
     }
 
     //处理加载更多的结果
@@ -185,7 +187,6 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
      */
     private void handleLoadMoreError(int categoryId) {
         mCurrentPage--;
-        pagesInfo.put(categoryId, mCurrentPage);
         for (iCategoryPagerCallback callback : callbackList) {
             if (callback.getCategoryId()==categoryId) {
                 callback.onLoadMoreError();

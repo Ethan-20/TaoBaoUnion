@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,6 +80,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
+
             //页面被展示时
             @Override
             public void onPageSelected(int position) {
@@ -87,9 +89,8 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
                 //mLooperPagerAdapter 中的mData是在onLooperListLoaded()中被设置的
                 //而监听器一直在监听,当中的mData还没有被设置数据时,监听器已经在工作了
                 //就会造成除零error 所以要加一个判断,防止除零错误的发生
-                if(mLooperPagerAdapter.getDataSize()==0)
-                    return;
-                int targetPosition = position% mLooperPagerAdapter.getDataSize() ;
+                if (mLooperPagerAdapter.getDataSize() == 0) return;
+                int targetPosition = position % mLooperPagerAdapter.getDataSize();
                 //切换指示器
                 updateLooperIndicator(targetPosition);
             }
@@ -106,16 +107,18 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 LogUtils.d(HomePagerFragment.this, "onLoadMore()........");
-               //去加载更多的内容
+                //去加载更多的内容
                 if (mPagerPresenter != null) {
                     mPagerPresenter.loadMore(mMaterialId);
                 }
+
             }
         });
     }
 
     /**
      * 切换至指示器
+     *
      * @param targetPosition
      */
     private void updateLooperIndicator(int targetPosition) {
@@ -225,7 +228,12 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     public void onLoadMoreLoaded(List<HomePageContent.DataBean> contents) {
-
+        //添加到适配器的底部把数据添加到适配器的底部
+        mContentAdapter.addData(contents);
+        if (twinklingRefreshLayout != null) {
+            twinklingRefreshLayout.finishLoadmore();
+        }
+        Toast.makeText(getContext(), "加载了" + contents.size() + "条内容", Toast.LENGTH_SHORT).show();
     }
 
     @Override

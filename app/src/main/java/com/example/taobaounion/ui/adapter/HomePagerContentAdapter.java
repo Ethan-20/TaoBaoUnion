@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.example.taobaounion.R;
 import com.example.taobaounion.model.domain.HomePageContent;
-import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.UrlUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerContentAdapter.InnerHolder> {
-    List<HomePageContent.DataBean> data = new ArrayList<>();
+    List<HomePageContent.DataBean> mData = new ArrayList<>();
 
     @NonNull
     @Override
@@ -38,19 +37,27 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
      */
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
-        HomePageContent.DataBean dataBean = data.get(position);
+        HomePageContent.DataBean dataBean = mData.get(position);
         holder.setData(dataBean);
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return mData.size();
     }
 
     public void setData(List<HomePageContent.DataBean> contents) {
-        data.clear();
-        data.addAll(contents);
+        mData.clear();
+        mData.addAll(contents);
         notifyDataSetChanged();
+    }
+
+    public void addData(List<HomePageContent.DataBean> contents) {
+         //添加之前拿到原来的size
+        int oldSize = mData.size();
+        mData.addAll(contents);
+        //notifyItemRangeChanged()方法可以更新局部item,第一个参数是开始改变的下标,第二个参数是改变的数量
+        notifyItemRangeChanged(oldSize,contents.size());
     }
 
     public class InnerHolder extends RecyclerView.ViewHolder {
