@@ -15,6 +15,7 @@ import retrofit2.Retrofit;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -100,6 +101,7 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
     }
 
     private void handleHomePageContentResult(HomePageContent pageContent, int categoryId) {
+        List<HomePageContent.DataBean> data = pageContent.getData();
         //通知UI层更新页面
         for (iCategoryPagerCallback callback : callbackList) {
             if (callback.getCategoryId() == categoryId) {
@@ -107,7 +109,9 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
                 if (pageContent == null || pageContent.getData().size() == 0) {
                     callback.onEmpty();
                 } else {
-                    callback.onContentLoad(pageContent.getData());
+                    List<HomePageContent.DataBean> looperData = data.subList(data.size() - 5, data.size());
+                    callback.onLooperListLoaded(looperData);
+                    callback.onContentLoad(data);
                 }
             }
         }

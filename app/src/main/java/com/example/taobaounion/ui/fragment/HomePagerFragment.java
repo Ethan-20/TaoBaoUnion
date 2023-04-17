@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import com.example.taobaounion.R;
 import com.example.taobaounion.base.BaseFragment;
@@ -15,6 +16,7 @@ import com.example.taobaounion.presenter.iCategoryPagerPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
 import com.example.taobaounion.ui.adapter.HomePagerAdapter;
 import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
+import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.view.iCategoryPagerCallback;
@@ -30,7 +32,11 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @BindView(R.id.home_pager_content_list)
     public RecyclerView mContentList;
+
+    @BindView(R.id.looper_pager)
+    public ViewPager looperPager;
     private HomePagerContentAdapter mContentAdapter;
+    private LooperPagerAdapter mLooperPagerAdapter;
 
     //在adapter中需要根据category来生成HomePagerFragment,所以在这里创建一个方法来返回HomePagerFragment
     public static HomePagerFragment newInstance(Categories.DataBean category){
@@ -83,8 +89,10 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         });
         //创建适配器
         mContentAdapter = new HomePagerContentAdapter();
+        mLooperPagerAdapter = new LooperPagerAdapter();
         //设置recyclerView的适配器
         mContentList.setAdapter(mContentAdapter);
+        looperPager.setAdapter(mLooperPagerAdapter);
         //
     }
 
@@ -137,7 +145,8 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     public void onLooperListLoaded(List<HomePageContent.DataBean> contents) {
-
+        LogUtils.d(this,"looper_size---->"+contents.size());
+        mLooperPagerAdapter.setData(contents);
     }
 
     @Override
