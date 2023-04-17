@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import com.bumptech.glide.Glide;
 import com.example.taobaounion.model.domain.HomePageContent;
+import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.UrlUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,6 +18,10 @@ import java.util.List;
 public class LooperPagerAdapter extends PagerAdapter {
     private List<HomePageContent.DataBean> mData = new ArrayList<>();
 
+    public int getDataSize(){
+        LogUtils.d(this,"mDta.size()===="+mData.size());
+        return mData.size();
+    }
     @NonNull
     @NotNull
     @Override

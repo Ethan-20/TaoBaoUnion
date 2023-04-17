@@ -2,12 +2,9 @@ package com.example.taobaounion.ui.fragment;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -21,7 +18,6 @@ import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePageContent;
 import com.example.taobaounion.presenter.iCategoryPagerPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
-import com.example.taobaounion.ui.adapter.HomePagerAdapter;
 import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.utils.Constants;
@@ -67,6 +63,53 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         //为homePagerFragment绑定bundle
         homePagerFragment.setArguments(bundle);
         return homePagerFragment;
+    }
+
+    @Override
+    protected void initListener() {
+        looperPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            //滑动页面时
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            //页面被展示时
+            @Override
+            public void onPageSelected(int position) {
+                //这里的position不是真正的position,需要取模,而真正有多少个数据
+                //还需要通过adapter中的方法进行暴露,这样拿到的数据才是最准确的
+                //mLooperPagerAdapter 中的mData是在onLooperListLoaded()中被设置的
+                //而监听器一直在监听,当中的mData还没有被设置数据时,监听器已经在工作了
+                //就会造成除零error 所以要加一个判断,防止除零错误的发生
+                if(mLooperPagerAdapter.getDataSize()==0)
+                    return;
+                int targetPosition = position% mLooperPagerAdapter.getDataSize() ;
+                //切换指示器
+                updateLooperIndicator(targetPosition);
+            }
+
+            //滑动状态发生改变
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    /**
+     * 切换至指示器
+     * @param targetPosition
+     */
+    private void updateLooperIndicator(int targetPosition) {
+        for (int i = 0; i < looperPointContainer.getChildCount(); i++) {
+            View point = looperPointContainer.getChildAt(i);
+            if (i == targetPosition) {
+                point.setBackgroundResource(R.drawable.shape_indicator_point_selected);
+            } else {
+                point.setBackgroundResource(R.drawable.shape_indicator_point_normal);
+            }
+        }
     }
 
     @Override
@@ -169,9 +212,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         Context context = getContext();
         LogUtils.d(this, "looper_size---->" + looperContents.size());
         mLooperPagerAdapter.setData(looperContents);
-        GradientDrawable pointDrawable = (GradientDrawable) context.getDrawable(R.drawable.shape_indicator_point);
-        GradientDrawable focusedPointDrawable = (GradientDrawable) context.getDrawable(R.drawable.shape_indicator_point);
-        pointDrawable.setColor(context.getColor(R.color.colorWhite));
+
         //解决第一张图不是真正的第一张图的问题: 用中间值减去取模之后的值,再取模就是0了
         int dx = (Integer.MAX_VALUE / 2) % looperContents.size();
         int targetCenterPosition = (Integer.MAX_VALUE / 2) - dx;
@@ -187,10 +228,10 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
             layoutParams.leftMargin = SizeUtils.dip2px(context, 5);
             layoutParams.rightMargin = SizeUtils.dip2px(context, 5);
             point.setLayoutParams(layoutParams);
-            if (i == 1) {
-                point.setBackground(focusedPointDrawable);
+            if (i == 0) {
+                point.setBackgroundResource(R.drawable.shape_indicator_point_selected);
             } else {
-                point.setBackground(pointDrawable);
+                point.setBackgroundResource(R.drawable.shape_indicator_point_normal);
             }
             looperPointContainer.addView(point);
         }
