@@ -1,8 +1,12 @@
 package com.example.taobaounion.ui.fragment;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import com.example.taobaounion.R;
@@ -14,6 +18,7 @@ import com.example.taobaounion.ui.adapter.HomePagerAdapter;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.view.iHomeCallback;
 import com.google.android.material.tabs.TabLayout;
+import org.jetbrains.annotations.NotNull;
 
 public class HomeFragment extends BaseFragment implements iHomeCallback {
 
@@ -26,6 +31,18 @@ public class HomeFragment extends BaseFragment implements iHomeCallback {
     public ViewPager mHomePager;
     private HomePagerAdapter mHomePagerAdapter;
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        LogUtils.d(this,"onCreateView.....");
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtils.d(this,"onDestroyView....");
+    }
 
     @Override
     protected int getRootViewResId() {
@@ -35,7 +52,6 @@ public class HomeFragment extends BaseFragment implements iHomeCallback {
     protected void initView(View rootView) {
 
         //创建适配器
-        //Return a private FragmentManager for placing and managing Fragments inside this Fragment.
         mHomePagerAdapter = new HomePagerAdapter(getChildFragmentManager());
         //给viewPager设置适配器
         mHomePager.setAdapter(mHomePagerAdapter);

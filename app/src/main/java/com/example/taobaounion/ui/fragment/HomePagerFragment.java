@@ -88,15 +88,27 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         homePagerParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                int headerHeight = homePagerHeaderContainer.getMeasuredHeight();
+                int headerHeight=0;
+                if (homePagerHeaderContainer != null) {
+                     headerHeight = homePagerHeaderContainer.getMeasuredHeight();
+                }
 //                LogUtils.d(this,"homePagerHeaderContainer.getMeasuredHeight()===="+headerHeight);
-                homePagerNestedScroller.setHeadHeight(headerHeight);
-                int measuredHeight = homePagerParent.getMeasuredHeight();
+                if (homePagerNestedScroller != null) {
+                    homePagerNestedScroller.setHeadHeight(headerHeight);
+                }
+                int measuredHeight = 0;
+                if (homePagerParent != null) {
+                     measuredHeight = homePagerParent.getMeasuredHeight();
+                }
                 //LogUtils.d(HomePagerFragment.this, "measuredHeight------>" + measuredHeight);
-                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mContentList.getLayoutParams();
-                LogUtils.d(HomePagerFragment.this,"layoutParam s.height--->"+layoutParams.height);
-                layoutParams.height = measuredHeight;
-                mContentList.setLayoutParams(layoutParams);
+                LinearLayout.LayoutParams layoutParams;
+                if (mContentList != null) {
+                     layoutParams = (LinearLayout.LayoutParams) mContentList.getLayoutParams();
+//                    LogUtils.d(HomePagerFragment.this,"layoutParam s.height--->"+layoutParams.height);
+                    layoutParams.height = measuredHeight;
+                    mContentList.setLayoutParams(layoutParams);
+                }
+
                 //有了height之后,就要移除监听,不然会一直监听,没意义
                 if (measuredHeight!=0)
                 {

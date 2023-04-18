@@ -46,6 +46,7 @@ public class TbNestedScrollView extends NestedScrollView {
         if (target instanceof RecyclerView){
             this.mRecyclerView = (RecyclerView)target;
         }
+
         if (originScroll<mHeaderHeight) {
             scrollBy(dx, dy);
             consumed[0] = dx;
