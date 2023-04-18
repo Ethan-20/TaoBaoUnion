@@ -4,9 +4,9 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +20,7 @@ import com.example.taobaounion.presenter.iCategoryPagerPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
 import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
+import com.example.taobaounion.ui.custom.TbNestedScrollView;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.SizeUtils;
@@ -53,6 +54,15 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     @BindView(R.id.home_pager_refresh)
     public TwinklingRefreshLayout twinklingRefreshLayout;
 
+    @BindView(R.id.home_pager_parent)
+    public LinearLayout homePagerParent;
+
+    @BindView(R.id.home_pager_header_container)
+    public LinearLayout homePagerHeaderContainer;
+
+    @BindView(R.id.home_pager_nested_scroller)
+    public TbNestedScrollView homePagerNestedScroller;
+
 
     private HomePagerContentAdapter mContentAdapter;
     private LooperPagerAdapter mLooperPagerAdapter;
@@ -73,6 +83,35 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     protected void initListener() {
+
+        //全局布局观察者,当布局的时候就会调用这个方法
+        homePagerParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int headerHeight = homePagerHeaderContainer.getMeasuredHeight();
+//                LogUtils.d(this,"homePagerHeaderContainer.getMeasuredHeight()===="+headerHeight);
+                homePagerNestedScroller.setHeadHeight(headerHeight);
+                int measuredHeight = homePagerParent.getMeasuredHeight();
+                //LogUtils.d(HomePagerFragment.this, "measuredHeight------>" + measuredHeight);
+                LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mContentList.getLayoutParams();
+                LogUtils.d(HomePagerFragment.this,"layoutParam s.height--->"+layoutParams.height);
+                layoutParams.height = measuredHeight;
+                mContentList.setLayoutParams(layoutParams);
+                //有了height之后,就要移除监听,不然会一直监听,没意义
+                if (measuredHeight!=0)
+                {
+                    homePagerParent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            }
+        });
+
+//        currentCategoryTitleTv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int measuredHeight = mContentList.getMeasuredHeight();
+//                LogUtils.d(HomePagerFragment.this,"measuredHeight------->"+measuredHeight);
+//            }
+//        });
 
         //轮播图的监听
         looperPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

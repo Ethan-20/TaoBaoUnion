@@ -34,10 +34,10 @@ public class LooperPagerAdapter extends PagerAdapter {
         int width = container.getMeasuredWidth();
         int height = container.getMeasuredHeight();
         int picSize = (width>height?width:height)/2;
-        LogUtils.d(this,"width--->"+width);
-        LogUtils.d(this,"height--->"+height);
+//        LogUtils.d(this,"width--->"+width);
+//        LogUtils.d(this,"height--->"+height);
         String CoverUrl = UrlUtils.getCoverPath(dataBean.getPict_url(),picSize);
-        LogUtils.d(this,"CoverUrl--->"+CoverUrl);
+//        LogUtils.d(this,"CoverUrl--->"+CoverUrl);
         //采用代码生成ImageView的方式
         ImageView iv = new ImageView(context);
         //创建布局参数

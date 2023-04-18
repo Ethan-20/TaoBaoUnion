@@ -3,20 +3,20 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:sob="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/home_pager_parent"
               tools:context=".ui.fragment.HomePagerFragment"
               android:background="@color/colorPageBg"
               android:gravity="center"
               android:orientation="vertical">
 
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-        sob:tr_enable_overscroll="true"
         android:id="@+id/home_pager_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+        <com.example.taobaounion.ui.custom.TbNestedScrollView
             android:overScrollMode="never"
+            android:id="@+id/home_pager_nested_scroller"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -26,37 +26,44 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <RelativeLayout
-                    android:layout_marginBottom="14dp"
+                <LinearLayout
+                    android:id="@+id/home_pager_header_container"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="125dp">
-
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/looper_pager"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_marginBottom="14dp"
                         android:layout_width="match_parent"
-                        android:overScrollMode="never"
-                        android:layout_height="125dp" />
+                        android:layout_height="125dp">
 
-                    <LinearLayout
-                        android:id="@+id/looper_point_container"
-                        android:layout_alignParentBottom="true"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </RelativeLayout>
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/looper_pager"
+                            android:layout_width="match_parent"
+                            android:overScrollMode="never"
+                            android:layout_height="125dp" />
 
-                <!--    标题-->
-                <include layout="@layout/include_home_pager_title_part" />
+                        <LinearLayout
+                            android:id="@+id/looper_point_container"
+                            android:layout_alignParentBottom="true"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+
+                    <!--    标题-->
+                    <include layout="@layout/include_home_pager_title_part" />
+                </LinearLayout>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_marginTop="11dp"
                     android:overScrollMode="never"
                     android:id="@+id/home_pager_content_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </com.example.taobaounion.ui.custom.TbNestedScrollView>
 
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 

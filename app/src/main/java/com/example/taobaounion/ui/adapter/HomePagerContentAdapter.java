@@ -24,10 +24,13 @@ import java.util.List;
 
 public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerContentAdapter.InnerHolder> {
     List<HomePageContent.DataBean> mData = new ArrayList<>();
-
+    int count = 0;
+    int Bcount = 0 ;
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        LogUtils.d(HomePagerContentAdapter.this,"onCreateViewHolder..."+count++);
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pager_content, parent, false);
 
         return new InnerHolder(itemView);
@@ -39,6 +42,8 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
      */
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+        LogUtils.d(HomePagerContentAdapter.this,"onBindViewHolder..."+Bcount++);
+
         HomePageContent.DataBean dataBean = mData.get(position);
         holder.setData(dataBean);
     }
@@ -102,7 +107,7 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
 /*            LogUtils.d(this, "width----->" + width);
             LogUtils.d(this, "height----->" + height);*/
             String coverPath = UrlUtils.getCoverPath(dataBean.getPict_url(), coverSize);
-            LogUtils.d(this,"coverPath---->"+coverPath);
+//            LogUtils.d(this,"coverPath---->"+coverPath);
             Glide.with(context).load(coverPath).into(cover);
             long couponAmount = dataBean.getCoupon_amount();//折扣
             String originPrice = dataBean.getZk_final_price();//原价
