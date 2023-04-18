@@ -20,7 +20,6 @@ import com.example.taobaounion.presenter.iCategoryPagerPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
 import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
-import com.example.taobaounion.ui.custom.TbNestedScrollView;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.SizeUtils;
@@ -28,6 +27,7 @@ import com.example.taobaounion.utils.ToastUtils;
 import com.example.taobaounion.view.iCategoryPagerCallback;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
+import com.lcodecore.tkrefreshlayout.views.TbNestedScrollView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
