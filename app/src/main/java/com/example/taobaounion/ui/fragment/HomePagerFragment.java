@@ -20,6 +20,7 @@ import com.example.taobaounion.presenter.iCategoryPagerPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
 import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
+import com.example.taobaounion.ui.custom.AutoLoopViewPager;
 import com.example.taobaounion.utils.Constants;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.SizeUtils;
@@ -43,7 +44,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     //轮播图
     @BindView(R.id.looper_pager)
-    public ViewPager looperPager;
+    public AutoLoopViewPager looperPager;
 
     @BindView(R.id.home_pager_title)
     public TextView currentCategoryTitleTv;
@@ -66,6 +67,21 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     private HomePagerContentAdapter mContentAdapter;
     private LooperPagerAdapter mLooperPagerAdapter;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //可见的时候调用开始轮播
+        looperPager.startLoop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //不可见的时候结束轮播
+        looperPager.stopLoop();
+
+    }
 
     //在adapter中需要根据category来生成HomePagerFragment,所以在这里创建一个方法来返回HomePagerFragment
     public static HomePagerFragment newInstance(Categories.DataBean category) {
