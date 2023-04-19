@@ -24,13 +24,13 @@ import java.util.List;
 
 public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerContentAdapter.InnerHolder> {
     List<HomePageContent.DataBean> mData = new ArrayList<>();
-    int count = 0;
-    int Bcount = 0 ;
+    private OnListenItemClickListener mItemClickListener = null;
+
+
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        LogUtils.d(HomePagerContentAdapter.this,"onCreateViewHolder..."+count++);
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pager_content, parent, false);
 
         return new InnerHolder(itemView);
@@ -42,10 +42,18 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
      */
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
-        LogUtils.d(HomePagerContentAdapter.this,"onBindViewHolder..."+Bcount++);
-
         HomePageContent.DataBean dataBean = mData.get(position);
+        //绑定数据
         holder.setData(dataBean);
+        //绑定监听
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.onItemClick(dataBean);
+                }
+            }
+        });
     }
 
     @Override
@@ -121,5 +129,13 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
             //LogUtils.d(this,"getVolume---->"+dataBean.getVolume());
             sellsCountTv.setText(String.format(context.getString(R.string.text_goods_sell_count), dataBean.getVolume()));
         }
+    }
+
+    public void setOnListenItemClickListener(OnListenItemClickListener listener) {
+        this.mItemClickListener = listener;
+    }
+
+    public interface OnListenItemClickListener{
+        void onItemClick(HomePageContent.DataBean item);
     }
 }

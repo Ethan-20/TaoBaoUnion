@@ -1,16 +1,13 @@
 package com.example.taobaounion.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.example.taobaounion.R;
+import com.example.taobaounion.base.BaseActivity;
 import com.example.taobaounion.base.BaseFragment;
 import com.example.taobaounion.ui.fragment.HomeFragment;
 import com.example.taobaounion.ui.fragment.RedPacketFragment;
@@ -20,7 +17,7 @@ import com.example.taobaounion.utils.LogUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
     @BindView(R.id.main_navigation_bar)
@@ -30,25 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private RedPacketFragment mRedPacketFragment;
     private SearchFragment mSearchFragment;
     private FragmentManager mFm;
-    private Unbinder mBind;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mBind = ButterKnife.bind(this);
-//        initView();
-        initFragments();
-        initListener();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mBind != null) {
-            mBind.unbind();
-        }
-    }
 
     private void initFragments() {
         mHomeFragment = new HomeFragment();
@@ -59,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mFm = getSupportFragmentManager();
         switchFragment(mHomeFragment);
     }
+
 
     private void initListener() {
         mNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -87,6 +67,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void initEvent() {
+        initListener();
+    }
+
+    @Override
+    protected void initView() {
+        initFragments();
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_main;
     }
 
     /**
@@ -119,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 2023/4/18 因为忘记删这一段代码,折腾了一个半钟,铭记
      */
-    private void initView() {
+/*    private void initView() {
         HomeFragment homeFragment = new HomeFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();//拿到一个事务
         transaction.add(R.id.main_page_container,homeFragment);
         transaction.commit();
-    }
+    }*/
 }

@@ -1,6 +1,7 @@
 package com.example.taobaounion.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePageContent;
 import com.example.taobaounion.presenter.iCategoryPagerPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
+import com.example.taobaounion.ui.activity.TicketActivity;
 import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.ui.custom.AutoLoopViewPager;
@@ -34,7 +36,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
-public class HomePagerFragment extends BaseFragment implements iCategoryPagerCallback {
+public class HomePagerFragment extends BaseFragment implements iCategoryPagerCallback, HomePagerContentAdapter.OnListenItemClickListener, LooperPagerAdapter.OnLooperPageItemClickListener {
 
     private iCategoryPagerPresenter mPagerPresenter;
     private int mMaterialId;
@@ -100,6 +102,9 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     @Override
     protected void initListener() {
 
+        //HomePagerFragment实现ItemClick监听接口的原因是让Adapter中可以调用到HPF中的OnClick()方法来进行UI操作
+        mContentAdapter.setOnListenItemClickListener(this);
+        mLooperPagerAdapter.setOnLooperItemClickListener(this);
         //全局布局观察者,当布局的时候就会调用这个方法
         homePagerParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -357,5 +362,24 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         if (mPagerPresenter != null) {
             mPagerPresenter.unRegisterViewCallback(this);
         }
+    }
+
+    @Override
+    public void onItemClick(HomePageContent.DataBean item) {
+        //列表内容被点击了
+//        LogUtils.d(this,"item clicked--->"+item.getTitle());
+        onHandleItemClick(item);
+    }
+
+    private void onHandleItemClick(HomePageContent.DataBean item) {
+        //todo 处理跳转
+        startActivity(new Intent(getContext(), TicketActivity.class));
+    }
+
+    @Override
+    public void onLooperItemClick(HomePageContent.DataBean item) {
+        //轮播图被点击
+//        LogUtils.d(this, "Looper item clicked--->"+item.getTitle());
+        onHandleItemClick(item);
     }
 }

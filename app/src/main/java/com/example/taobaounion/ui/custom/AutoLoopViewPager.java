@@ -50,7 +50,7 @@ public class AutoLoopViewPager extends ViewPager {
             int currentItem = getCurrentItem();
             setCurrentItem(++currentItem);
             if (isLoop) {
-                LogUtils.d(AutoLoopViewPager.this, "isLoop......");
+//                LogUtils.d(AutoLoopViewPager.this, "isLoop......");
                 postDelayed(this, mDuration);
             }
         }
@@ -66,7 +66,7 @@ public class AutoLoopViewPager extends ViewPager {
 
     public void stopLoop() {
         isLoop = false;
-        LogUtils.d(AutoLoopViewPager.this, "stopLoop......");
+//        LogUtils.d(AutoLoopViewPager.this, "stopLoop......");
         removeCallbacks(mTask);
     }
 }
