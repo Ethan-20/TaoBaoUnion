@@ -30,20 +30,9 @@ public class CategoryPagePresenterImpl implements iCategoryPagerPresenter {
     //有多个分类页面,通过一个单例类来管理这一个页面数组
     private ArrayList<iCategoryPagerCallback> callbackList = new ArrayList<>();
     public static final int DEFAULT_PAGE = 1;
-    private static iCategoryPagerPresenter ourInstance = null;
     private Integer mCurrentPage;
 
-    public static iCategoryPagerPresenter getInstance() {
 
-        if (ourInstance == null)
-            ourInstance = new CategoryPagePresenterImpl();
-
-        return ourInstance;
-    }
-
-    private CategoryPagePresenterImpl() {
-
-    }
 
 
     /**

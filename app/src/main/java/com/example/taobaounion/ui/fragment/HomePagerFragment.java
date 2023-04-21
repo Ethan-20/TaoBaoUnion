@@ -18,15 +18,14 @@ import com.example.taobaounion.base.BaseFragment;
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePageContent;
 import com.example.taobaounion.presenter.iCategoryPagerPresenter;
+import com.example.taobaounion.presenter.iTicketPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
+import com.example.taobaounion.presenter.impl.TicketPresenterImpl;
 import com.example.taobaounion.ui.activity.TicketActivity;
 import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.ui.custom.AutoLoopViewPager;
-import com.example.taobaounion.utils.Constants;
-import com.example.taobaounion.utils.LogUtils;
-import com.example.taobaounion.utils.SizeUtils;
-import com.example.taobaounion.utils.ToastUtils;
+import com.example.taobaounion.utils.*;
 import com.example.taobaounion.view.iCategoryPagerCallback;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -212,7 +211,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     @Override
     protected void initPresenter() {
-        mPagerPresenter = CategoryPagePresenterImpl.getInstance();
+        mPagerPresenter = PresenterManager.getInstance().getCategoryPagePresenter();
         mPagerPresenter.registerViewCallback(this);
     }
 
@@ -373,6 +372,12 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
 
     private void onHandleItemClick(HomePageContent.DataBean item) {
         //todo 处理跳转
+        String title = item.getTitle();
+        String url = item.getClick_url();
+        String cover = item.getPict_url();
+        //拿到ticketPresenter去加载数据
+        iTicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();
+        ticketPresenter.getTicket(title,url,cover);
         startActivity(new Intent(getContext(), TicketActivity.class));
     }
 
