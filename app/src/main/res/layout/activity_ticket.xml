@@ -27,13 +27,36 @@
             android:text="@string/text_tao_kou_ling"/>
 
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/ticket_cover"
-        android:layout_marginTop="33dp"
+    
+    <RelativeLayout
         android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_height="300dp">
+        <ImageView
+            android:id="@+id/ticket_cover"
+            android:layout_marginTop="33dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray"/>
+
+        <com.example.taobaounion.ui.custom.LoadingView
+            android:id="@+id/ticket_cover_loading"
+            android:layout_centerInParent="true"
+            android:layout_width="33dp"
+            android:layout_height="33dp"/>
+
+        <TextView
+            android:id="@+id/ticket_load_retry"
+            android:text="加载出错"
+            android:textColor="@color/White"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+    
+
 
     <EditText
         android:id="@+id/ticket_code"

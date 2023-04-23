@@ -108,8 +108,9 @@ public class MainActivity extends BaseActivity {
             fragmentTransaction.show(targetFragment);
         }
         if (lastFragment != null) {
-            LogUtils.d(this,"lastFragment"+lastFragment);
+//            LogUtils.d(this,"lastFragment"+lastFragment);
             fragmentTransaction.hide(lastFragment);
+//            LogUtils.d(this,"lastFragment is visible? "+lastFragment.isHidden());
         }
         lastFragment = targetFragment;
        // fragmentTransaction.replace(R.id.main_page_container, targetFragment);

@@ -104,7 +104,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         //HomePagerFragment实现ItemClick监听接口的原因是让Adapter中可以调用到HPF中的OnClick()方法来进行UI操作
         mContentAdapter.setOnListenItemClickListener(this);
         mLooperPagerAdapter.setOnLooperItemClickListener(this);
-        //全局布局观察者,当布局的时候就会调用这个方法
+        //全局布局观察者,当布    局的时候就会调用这个方法
         homePagerParent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {

@@ -13,6 +13,7 @@ import com.example.taobaounion.base.BaseActivity;
 import com.example.taobaounion.model.domain.TicketResult;
 import com.example.taobaounion.presenter.iTicketPresenter;
 import com.example.taobaounion.presenter.impl.TicketPresenterImpl;
+import com.example.taobaounion.ui.custom.LoadingView;
 import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.utils.UrlUtils;
 import com.example.taobaounion.view.iTicketPageCallback;
@@ -33,6 +34,14 @@ public class TicketActivity extends BaseActivity implements iTicketPageCallback 
 
     @BindView(R.id.ticket_copy_or_open_btn)
     public TextView mOpenOrCopyBtn;
+
+    @BindView(R.id.ticket_cover_loading)
+    public View mCoverLoading;
+
+    @BindView(R.id.ticket_load_retry)
+    public TextView mLoadRetry;
+
+
 
     @Override
     protected void initPresenter() {
@@ -70,11 +79,19 @@ public class TicketActivity extends BaseActivity implements iTicketPageCallback 
 
     @Override
     public void onError() {
-
+        if (mLoadRetry != null) {
+            mLoadRetry.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void onLoading() {
+        if (mLoadRetry != null) {
+            mLoadRetry.setVisibility(View.GONE);
+        }
+        if (mCoverLoading != null) {
+            mCoverLoading.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -85,6 +102,7 @@ public class TicketActivity extends BaseActivity implements iTicketPageCallback 
 
     @Override
     public void onTicketLoaded(String cover, TicketResult result) {
+        mCoverLoading.setVisibility(View.GONE);
         if (mCover != null&& !TextUtils.isEmpty(cover)) {
             cover = UrlUtils.getCoverPath(cover, 300);
             Glide.with(this).load(cover).into(mCover);

@@ -16,7 +16,7 @@ import com.example.taobaounion.utils.LogUtils;
 
 public abstract class BaseFragment extends Fragment {
 
-    private State currentState = State.NONE;
+    public static State currentState = State.NONE;
     private View mSuccessView;
     private View mLoadingView;
     private View mErrorView;
