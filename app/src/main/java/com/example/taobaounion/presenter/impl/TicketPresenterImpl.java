@@ -17,9 +17,21 @@ import java.net.HttpURLConnection;
 
 public class TicketPresenterImpl implements iTicketPresenter {
 
+    private iTicketPageCallback mViewCallback = null;
+    private String mCover;
+    private TicketResult mTicketResult = null;
+
+    enum LoadState{
+         LOADING,SUCCESS,ERROR,NONE
+     }
+
+     private LoadState mCurrentState = LoadState.NONE;
+
     @Override
     public void getTicket(String title,String url, String cover) {
-        LogUtils.d(this," url  ="+url);
+//        LogUtils.d(this," url  ="+url);
+        this.mCover = cover;
+        onTicketLoading();
         String ticketUrl = UrlUtils.getTicketUrl(url);
         //TODO: 获取淘口令
         Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
@@ -32,9 +44,12 @@ public class TicketPresenterImpl implements iTicketPresenter {
                 int code = response.code();
                 LogUtils.d(TicketPresenterImpl.this, "result code == "+code);
                 if (code == HttpURLConnection.HTTP_OK) {
-                    TicketResult ticketResult = response.body();
-                    LogUtils.d(TicketPresenterImpl.this, "result  == "+ ticketResult);
+                    mTicketResult = response.body();
+                    LogUtils.d(TicketPresenterImpl.this, "result  == "+ mTicketResult);
+                    //通知ui更新
+                   onTicketLoadedSuccess();
                 }else{
+                    onTicketLoadedError();
                     LogUtils.i(TicketPresenterImpl.this, "failed  == "+code);
                 }
             }
@@ -42,17 +57,58 @@ public class TicketPresenterImpl implements iTicketPresenter {
             @Override
             public void onFailure(Call<TicketResult> call, Throwable t) {
 
+                onTicketLoadedError();
             }
         });
     }
+
+
     @Override
     public void registerViewCallback(iTicketPageCallback callback) {
+        if (mCurrentState!= LoadState.NONE) {
+            //说明状态已经改变
+            //更新UI
+            if (mCurrentState== LoadState.SUCCESS) {
+                onTicketLoadedSuccess();
+            } else if (mCurrentState == LoadState.ERROR) {
+                onTicketLoadedError();
+            } else if (mCurrentState == LoadState.LOADING) {
+                onTicketLoading();
+            }
+        }
+        this.mViewCallback = callback;
+    }
+
+    private void onTicketLoadedError() {
+        if (mViewCallback != null) {
+            mViewCallback.onError();
+        }else{
+            mCurrentState = LoadState.ERROR;
+        }
+    }
+
+    private void onTicketLoading() {
+        if (mViewCallback != null) {
+            mViewCallback.onLoading();
+        }else{
+            mCurrentState = LoadState.LOADING;
+        }
+    }
+
+    private void onTicketLoadedSuccess() {
+
+        if (mViewCallback != null) {
+            mViewCallback.onTicketLoaded(mCover,mTicketResult);
+        }else{
+            mCurrentState = LoadState.SUCCESS;
+
+        }
 
     }
 
     @Override
     public void unRegisterViewCallback(iTicketPageCallback callback) {
-
+        this.mViewCallback = null;
     }
 
 }

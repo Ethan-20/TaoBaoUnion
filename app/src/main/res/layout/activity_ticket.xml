@@ -1,11 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:gravity="center_horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <RelativeLayout
+
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/ticket_press_back"
+            android:padding="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_centerInParent="true"
+            android:textSize="14sp"
+            android:textColor="@color/White"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_tao_kou_ling"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ticket_cover"
+        android:layout_marginTop="33dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <EditText
+        android:id="@+id/ticket_code"
+        android:focusable="false"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:text=""
+        android:textColor="#4A4A4A"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_ticket_edit_box_bg"
+        android:layout_width="244dp"
+        android:layout_height="49dp"/>
+    
     <TextView
-        android:text="领券成功"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/ticket_copy_or_open_btn"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/White"
+        android:background="@drawable/shape_button_bg"
+        android:text="领券"
+        android:layout_width="141dp"
+        android:layout_height="40dp"/>
+
 </LinearLayout>
