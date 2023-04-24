@@ -1,6 +1,8 @@
 package com.example.taobaounion.base;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.example.taobaounion.R;
+import com.example.taobaounion.presenter.iTicketPresenter;
+import com.example.taobaounion.ui.activity.TicketActivity;
 import com.example.taobaounion.utils.LogUtils;
+import com.example.taobaounion.utils.PresenterManager;
 
 public abstract class BaseFragment extends Fragment {
 
@@ -156,6 +161,7 @@ public abstract class BaseFragment extends Fragment {
 
 
     protected abstract int getRootViewResId();
+
 
 
 }

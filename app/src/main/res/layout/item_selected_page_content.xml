@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sob="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    sob:cardElevation="6dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    sob:contentPadding="8dp"
+    android:background="@color/White">
+    
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/selected_cover"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/selected_off_price"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/White"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/shape_tab_bg"
+            android:text="领券省30元" />
+    </RelativeLayout>
+
+        
+    <TextView
+        android:id="@+id/selected_title"
+        android:textSize="12sp"
+        android:layout_marginTop="10dp"
+        android:text="南海校园图书馆2023年劳动节假期开放通知"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_marginTop="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/selected_buy_btn"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:textColor="@color/White"
+            android:background="@drawable/shape_tab_bg"
+            android:gravity="center"
+            android:text="领券购买"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/selected_original_price"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp"
+            android:text="原价:9.9元"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

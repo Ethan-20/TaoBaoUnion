@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -373,7 +374,12 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     private void onHandleItemClick(HomePageContent.DataBean item) {
         //todo 处理跳转
         String title = item.getTitle();
-        String url = item.getClick_url();
+        //这个是详情url不是领券url
+        String url = item.getCoupon_click_url();
+        if (TextUtils.isEmpty(url)) {
+            //防止商品没有优惠券的情况
+            url = item.getClick_url();
+        }
         String cover = item.getPict_url();
         //拿到ticketPresenter去加载数据
         iTicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();

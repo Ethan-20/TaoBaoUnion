@@ -5,8 +5,13 @@ public class UrlUtils {
         return "discovery/"+materialId+"/"+page;
     }
 
-    public static String getCoverPath(String pict_url,int size) {
-        return "https:" + pict_url+"_"+size+"x"+size+".jpg";
+    public static String getCoverPath(String url,int size) {
+        if (url.startsWith("http") || url.startsWith("https")) {
+            return url+"_"+size+"x"+size+".jpg";
+        }
+        else {
+            return "https:" + url+"_"+size+"x"+size+".jpg";
+        }
     }
 
     public static String getTicketUrl(String url) {
@@ -16,5 +21,9 @@ public class UrlUtils {
         else {
             return "https:" + url;
         }
+    }
+
+    public static String getSelectedPageContentUrl(Integer categoryId) {
+        return "recommend/"+categoryId;
     }
 }
