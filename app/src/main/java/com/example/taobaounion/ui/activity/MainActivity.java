@@ -1,6 +1,5 @@
 package com.example.taobaounion.ui.activity;
 
-import android.os.Bundle;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -9,10 +8,7 @@ import butterknife.BindView;
 import com.example.taobaounion.R;
 import com.example.taobaounion.base.BaseActivity;
 import com.example.taobaounion.base.BaseFragment;
-import com.example.taobaounion.ui.fragment.HomeFragment;
-import com.example.taobaounion.ui.fragment.RedPacketFragment;
-import com.example.taobaounion.ui.fragment.SearchFragment;
-import com.example.taobaounion.ui.fragment.SelectedFragment;
+import com.example.taobaounion.ui.fragment.*;
 import com.example.taobaounion.utils.LogUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +20,7 @@ public class MainActivity extends BaseActivity {
     public BottomNavigationView mNavigationView;
     private HomeFragment mHomeFragment;
     private SelectedFragment mSelectedFragment;
-    private RedPacketFragment mRedPacketFragment;
+    private OnSellFragment mOnSellFragment;
     private SearchFragment mSearchFragment;
     private FragmentManager mFm;
 
@@ -32,7 +28,7 @@ public class MainActivity extends BaseActivity {
     private void initFragments() {
         mHomeFragment = new HomeFragment();
         mSelectedFragment = new SelectedFragment();
-        mRedPacketFragment = new RedPacketFragment();
+        mOnSellFragment = new OnSellFragment();
         mSearchFragment = new SearchFragment();
         //Return the FragmentManager for interacting with fragments associated with this activity.
         mFm = getSupportFragmentManager();
@@ -57,7 +53,7 @@ public class MainActivity extends BaseActivity {
                         break;
                     case R.id.red_packet:
                         LogUtils.w(this,"切换到特惠");
-                        switchFragment(mRedPacketFragment);
+                        switchFragment(mOnSellFragment);
                         break;
                     case R.id.search:
                         LogUtils.e(this,"切换到搜索");

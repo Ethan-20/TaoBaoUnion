@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sob="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    sob:cardElevation="4dp"
+    sob:cardBackgroundColor="@color/White"
+    sob:contentPadding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/White">
+    
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/on_sell_cover"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/on_sell_title"
+            android:ellipsize="end"
+            android:layout_marginTop="6dp"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="这个考研分享会是今年刚考上同学的经验之谈，有考上985的同学"/>
+
+        <LinearLayout
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="12sp"
+            android:textColor="#D0021B"
+            android:id="@+id/on_sell_original_price_tv"
+            android:text="￥58.9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="12sp"
+            android:textColor="#D0021B"
+            android:id="@+id/on_sell_off_price_tv"
+            android:text="券后价:￥29.9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

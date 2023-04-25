@@ -22,5 +22,8 @@ public interface Api {
     @GET()
     Call<SelectedContent> getSelectedPageContent(@Url String url);
 
+    @GET()
+    Call<OnSellContent> getOnSellContent(@Url String url);
+
 
 }

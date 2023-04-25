@@ -160,7 +160,7 @@ public class TicketActivity extends BaseActivity implements iTicketPageCallback 
     public void onTicketLoaded(String cover, TicketResult result) {
         mCoverLoading.setVisibility(View.GONE);
         if (mCover != null&& !TextUtils.isEmpty(cover)) {
-            cover = UrlUtils.getCoverPath(cover, 300);
+            cover = UrlUtils.getCoverPath(cover,300);
             Glide.with(this).load(cover).into(mCover);
         }
         if (result != null && result.getData().getTbk_tpwd_create_response() != null) {

@@ -44,7 +44,7 @@ public class LoadingView extends AppCompatImageView {
                 invalidate();
                 //判断是否需要继续旋转
                 //如果不可见,或者已经DetachFromWindow就不再旋转了
-                LogUtils.d(LoadingView.this,"loading.........");
+//                LogUtils.d(LoadingView.this,"loading.........");
                 //TODO 目前未解决bug: 无法停止旋转(哪怕是fragment被隐藏起来), 现在只是用这种很老缠的方法停止外部loading转圈圈
                 if (BaseFragment.currentState== BaseFragment.State.LOADING) {
                     postDelayed(this, 100);

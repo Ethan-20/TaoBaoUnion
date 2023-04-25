@@ -14,6 +14,15 @@ public class UrlUtils {
         }
     }
 
+    public static String getCoverPath(String url) {
+        if (url.startsWith("http") || url.startsWith("https")) {
+            return url;
+        }
+        else {
+            return "https:" + url;
+        }
+    }
+
     public static String getTicketUrl(String url) {
         if (url.startsWith("http") || url.startsWith("https")) {
             return url;
@@ -25,5 +34,9 @@ public class UrlUtils {
 
     public static String getSelectedPageContentUrl(Integer categoryId) {
         return "recommend/"+categoryId;
+    }
+
+    public static String getOnSellPageUrl(int currentPage) {
+        return "onSell/"+currentPage;
     }
 }
