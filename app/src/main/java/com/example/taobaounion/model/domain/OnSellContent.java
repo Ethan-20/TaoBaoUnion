@@ -110,7 +110,7 @@ public class OnSellContent {
                     this.map_data = map_data;
                 }
 
-                public static class MapDataBean {
+                public static class MapDataBean implements iBaseInfo{
                     /**
                      * category_id : 50006825
                      * click_url : //s.click.taobao.com/t?e=m%3D2%26s%3DcmV0cKnqeQRw4vFB6t2Z2ueEDrYVVa64Dne87AjQPk9yINtkUhsv0CaTAmJJ6L3ZLbChSlIHp5pm5nS0VR3oT0KAZCke%2BMGJxC%2FP4%2FZfPFbcQmwDRwHnn1oN8CPq4PKMZiqtwk9j5QNseQsrwh2IlHA87FBk1HI8KVOig5Fjbt7GVR996QzAqCwRypUAjFGKtSKTbC2W0sZEcQswZvi%2FwpKkBnK7E9VYkgsWuVGV533%2BaTuzah1ZglUuQMO%2BwiqZSdChf3U3iXY%2B5QowgvHJPA%3D%3D&scm=1007.15348.115058.0_3756_0c972b4f-fbc1-47d2-ab61-2d882e9f73a9&pvid=0c972b4f-fbc1-47d2-ab61-2d882e9f73a9&app_pvid=59590_33.60.181.135_831_1682404773614&ptl=floorId:3756;originalFloorId:3756;pvid:0c972b4f-fbc1-47d2-ab61-2d882e9f73a9;app_pvid:59590_33.60.181.135_831_1682404773614&union_lens=lensId%3AMAPI%401682404773%400_3756_0c972b4f-fbc1-47d2-ab61-2d882e9f73a9%401%40eyJmbG9vcklkIjozNzU2fQieie%3Bscm%3A1007.15348.115058.0_3756_0c972b4f-fbc1-47d2-ab61-2d882e9f73a9
@@ -337,8 +337,18 @@ public class OnSellContent {
                         this.sub_title = sub_title;
                     }
 
+                    @Override
+                    public String getCover() {
+                        return pict_url;
+                    }
+
                     public String getTitle() {
                         return title;
+                    }
+
+                    @Override
+                    public String getUrl() {
+                        return coupon_click_url;
                     }
 
                     public void setTitle(String title) {

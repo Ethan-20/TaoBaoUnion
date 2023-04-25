@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.example.taobaounion.R;
 import com.example.taobaounion.model.domain.HomePageContent;
+import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.UrlUtils;
 import org.jetbrains.annotations.NotNull;
@@ -136,6 +137,6 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
     }
 
     public interface OnListenItemClickListener{
-        void onItemClick(HomePageContent.DataBean item);
+        void onItemClick(iBaseInfo item);
     }
 }

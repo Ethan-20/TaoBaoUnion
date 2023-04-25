@@ -18,6 +18,7 @@ import com.example.taobaounion.R;
 import com.example.taobaounion.base.BaseFragment;
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePageContent;
+import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.presenter.iCategoryPagerPresenter;
 import com.example.taobaounion.presenter.iTicketPresenter;
 import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
@@ -365,30 +366,19 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     }
 
     @Override
-    public void onItemClick(HomePageContent.DataBean item) {
+    public void onItemClick(iBaseInfo item) {
         //列表内容被点击了
 //        LogUtils.d(this,"item clicked--->"+item.getTitle());
         onHandleItemClick(item);
     }
 
-    private void onHandleItemClick(HomePageContent.DataBean item) {
-        //todo 处理跳转
-        String title = item.getTitle();
-        //这个是详情url不是领券url
-        String url = item.getCoupon_click_url();
-        if (TextUtils.isEmpty(url)) {
-            //防止商品没有优惠券的情况
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        //拿到ticketPresenter去加载数据
-        iTicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();
-        ticketPresenter.getTicket(title,url,cover);
-        startActivity(new Intent(getContext(), TicketActivity.class));
+    private void onHandleItemClick(iBaseInfo item) {
+
+        TicketUtils.toTicketPage(getContext(),item);
     }
 
     @Override
-    public void onLooperItemClick(HomePageContent.DataBean item) {
+    public void onLooperItemClick(iBaseInfo item) {
         //轮播图被点击
 //        LogUtils.d(this, "Looper item clicked--->"+item.getTitle());
         onHandleItemClick(item);

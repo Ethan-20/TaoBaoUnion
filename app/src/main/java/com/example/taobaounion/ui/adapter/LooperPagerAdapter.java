@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import com.bumptech.glide.Glide;
 import com.example.taobaounion.model.domain.HomePageContent;
+import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.UrlUtils;
 import org.jetbrains.annotations.NotNull;
@@ -87,6 +88,6 @@ public class LooperPagerAdapter extends PagerAdapter {
     }
 
     public interface OnLooperPageItemClickListener{
-        void onLooperItemClick(HomePageContent.DataBean item);
+        void onLooperItemClick(iBaseInfo item);
     }
 }

@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.example.taobaounion.R;
 import com.example.taobaounion.model.domain.OnSellContent;
+import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.UrlUtils;
 import org.jetbrains.annotations.NotNull;
@@ -117,6 +118,6 @@ public class OnSellContentAdapter extends RecyclerView.Adapter<OnSellContentAdap
     }
 
     public interface OnSellPageItemClickListener{
-        void onSellItemClick(OnSellContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean dataBean);
+        void onSellItemClick(iBaseInfo dataBean);
     }
 }

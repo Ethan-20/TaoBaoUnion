@@ -11,12 +11,14 @@ import butterknife.BindView;
 import com.example.taobaounion.R;
 import com.example.taobaounion.base.BaseFragment;
 import com.example.taobaounion.model.domain.OnSellContent;
+import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.presenter.iOnSellPagePresenter;
 import com.example.taobaounion.presenter.iTicketPresenter;
 import com.example.taobaounion.ui.activity.TicketActivity;
 import com.example.taobaounion.ui.adapter.OnSellContentAdapter;
 import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.utils.SizeUtils;
+import com.example.taobaounion.utils.TicketUtils;
 import com.example.taobaounion.utils.ToastUtils;
 import com.example.taobaounion.view.iOnSellPageCallback;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -138,20 +140,8 @@ public class OnSellFragment extends BaseFragment implements iOnSellPageCallback,
     }
 
     @Override
-    public void onSellItemClick(OnSellContent.DataBean.TbkDgOptimusMaterialResponseBean.ResultListBean.MapDataBean item) {
-        //特惠列表内容被点击
-        //todo 处理跳转
-        String title = item.getTitle();
-        //这个是详情url不是领券url
-        String url = item.getCoupon_click_url();
-        if (TextUtils.isEmpty(url)) {
-            //防止商品没有优惠券的情况
-            url = item.getClick_url();
-        }
-        String cover = item.getPict_url();
-        //拿到ticketPresenter去加载数据
-        iTicketPresenter ticketPresenter = PresenterManager.getInstance().getTicketPresenter();
-        ticketPresenter.getTicket(title,url,cover);
-        startActivity(new Intent(getContext(), TicketActivity.class));
+    public void onSellItemClick(iBaseInfo item) {
+
+        TicketUtils.toTicketPage(getContext(),item);
     }
 }
