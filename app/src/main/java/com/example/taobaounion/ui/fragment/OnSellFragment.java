@@ -1,9 +1,10 @@
 package com.example.taobaounion.ui.fragment;
 
-import android.content.Intent;
 import android.graphics.Rect;
-import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +14,6 @@ import com.example.taobaounion.base.BaseFragment;
 import com.example.taobaounion.model.domain.OnSellContent;
 import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.presenter.iOnSellPagePresenter;
-import com.example.taobaounion.presenter.iTicketPresenter;
-import com.example.taobaounion.ui.activity.TicketActivity;
 import com.example.taobaounion.ui.adapter.OnSellContentAdapter;
 import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.utils.SizeUtils;
@@ -36,6 +35,10 @@ public class OnSellFragment extends BaseFragment implements iOnSellPageCallback,
 
     @BindView(R.id.on_sell_refresh_layout)
     public TwinklingRefreshLayout mTwinklingRefreshLayout;
+
+    @BindView(R.id.fragment_bar_title_tv)
+    public TextView barTitleTv;
+
     private OnSellContentAdapter mOnSellContentAdapter;
 
 
@@ -51,6 +54,7 @@ public class OnSellFragment extends BaseFragment implements iOnSellPageCallback,
 
     @Override
     protected void initView(View rootView) {
+        barTitleTv.setText("特惠宝贝");
         mOnSellContentAdapter = new OnSellContentAdapter();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), DEFAULT_SPAN_COUNT);
         mContentRv.setLayoutManager(gridLayoutManager);
@@ -68,6 +72,11 @@ public class OnSellFragment extends BaseFragment implements iOnSellPageCallback,
         mTwinklingRefreshLayout.setEnableLoadmore(true);
         mTwinklingRefreshLayout.setEnableRefresh(false);
         mTwinklingRefreshLayout.setEnableOverScroll(true);
+    }
+
+    @Override
+    protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
+        return inflater.inflate(R.layout.fragment_with_bar_layout, container, false);
     }
 
     @Override

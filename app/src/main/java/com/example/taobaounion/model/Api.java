@@ -25,5 +25,13 @@ public interface Api {
     @GET()
     Call<OnSellContent> getOnSellContent(@Url String url);
 
+    @GET("search/recommend")
+    Call<SearchRecommend> getRecommendWords();
+
+    @GET("search")
+    Call<SearchResult> doSearch(@Query("page") int page,@Query("keyword") String keyword);
+
+
+
 
 }

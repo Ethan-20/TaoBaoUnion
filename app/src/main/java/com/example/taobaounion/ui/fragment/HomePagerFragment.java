@@ -1,10 +1,8 @@
 package com.example.taobaounion.ui.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -20,10 +18,6 @@ import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePageContent;
 import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.presenter.iCategoryPagerPresenter;
-import com.example.taobaounion.presenter.iTicketPresenter;
-import com.example.taobaounion.presenter.impl.CategoryPagePresenterImpl;
-import com.example.taobaounion.presenter.impl.TicketPresenterImpl;
-import com.example.taobaounion.ui.activity.TicketActivity;
 import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.ui.custom.AutoLoopViewPager;

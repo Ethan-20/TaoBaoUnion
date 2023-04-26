@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
 
 import java.net.HttpURLConnection;
 
-public class TicketPresenterImpl implements iTicketPresenter {
+public class TicketPagePresenterImpl implements iTicketPresenter {
 
     private iTicketPageCallback mViewCallback = null;
     private String mCover;
@@ -42,15 +42,15 @@ public class TicketPresenterImpl implements iTicketPresenter {
             @Override
             public void onResponse(Call<TicketResult> call, Response<TicketResult> response) {
                 int code = response.code();
-                LogUtils.d(TicketPresenterImpl.this, "result code == "+code);
+                LogUtils.d(TicketPagePresenterImpl.this, "result code == "+code);
                 if (code == HttpURLConnection.HTTP_OK) {
                     mTicketResult = response.body();
-                    LogUtils.d(TicketPresenterImpl.this, "result  == "+ mTicketResult);
+                    LogUtils.d(TicketPagePresenterImpl.this, "result  == "+ mTicketResult);
                     //通知ui更新
                    onTicketLoadedSuccess();
                 }else{
                     onTicketLoadedError();
-                    LogUtils.i(TicketPresenterImpl.this, "failed  == "+code);
+                    LogUtils.i(TicketPagePresenterImpl.this, "failed  == "+code);
                 }
             }
 

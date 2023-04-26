@@ -40,7 +40,7 @@ public class PresenterManager {
     private PresenterManager() {
         mCategoryPagePresenter = new CategoryPagePresenterImpl();
         mHomePresenter = new HomePresenterImpl();
-        mTicketPresenter = new TicketPresenterImpl();
+        mTicketPresenter = new TicketPagePresenterImpl();
         mSelectedPagePresenter = new SelectedPagePresenterImpl();
         mOnSellPagePresenter = new OnSellPagePresenterImpl();
     }
