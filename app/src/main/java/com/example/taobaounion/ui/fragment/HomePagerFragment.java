@@ -18,7 +18,7 @@ import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.model.domain.HomePageContent;
 import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.presenter.iCategoryPagerPresenter;
-import com.example.taobaounion.ui.adapter.HomePagerContentAdapter;
+import com.example.taobaounion.ui.adapter.LinearItemContentAdapter;
 import com.example.taobaounion.ui.adapter.LooperPagerAdapter;
 import com.example.taobaounion.ui.custom.AutoLoopViewPager;
 import com.example.taobaounion.utils.*;
@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 
-public class HomePagerFragment extends BaseFragment implements iCategoryPagerCallback, HomePagerContentAdapter.OnListenItemClickListener, LooperPagerAdapter.OnLooperPageItemClickListener {
+public class HomePagerFragment extends BaseFragment implements iCategoryPagerCallback, LinearItemContentAdapter.OnListenItemClickListener, LooperPagerAdapter.OnLooperPageItemClickListener {
 
     private iCategoryPagerPresenter mPagerPresenter;
     private int mMaterialId;
@@ -62,7 +62,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
     public TbNestedScrollView homePagerNestedScroller;
 
 
-    private HomePagerContentAdapter mContentAdapter;
+    private LinearItemContentAdapter mContentAdapter;
     private LooperPagerAdapter mLooperPagerAdapter;
 
     @Override
@@ -240,12 +240,12 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         mContentList.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull @NotNull Rect outRect, @NonNull @NotNull View view, @NonNull @NotNull RecyclerView parent, @NonNull @NotNull RecyclerView.State state) {
-                outRect.top = 8;
-                outRect.bottom = 8;
+                outRect.top = SizeUtils.dip2px(getContext(),1.5f);
+                outRect.bottom = SizeUtils.dip2px(getContext(),1.5f);;
             }
         });
         //创建适配器
-        mContentAdapter = new HomePagerContentAdapter();
+        mContentAdapter = new LinearItemContentAdapter();
         mLooperPagerAdapter = new LooperPagerAdapter();
         //设置recyclerView的适配器
         mContentList.setAdapter(mContentAdapter);

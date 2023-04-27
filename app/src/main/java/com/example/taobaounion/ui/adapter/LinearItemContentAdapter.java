@@ -2,7 +2,6 @@ package com.example.taobaounion.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,15 +15,15 @@ import com.bumptech.glide.Glide;
 import com.example.taobaounion.R;
 import com.example.taobaounion.model.domain.HomePageContent;
 import com.example.taobaounion.model.domain.iBaseInfo;
-import com.example.taobaounion.utils.LogUtils;
+import com.example.taobaounion.model.domain.iLinearItemInfo;
 import com.example.taobaounion.utils.UrlUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerContentAdapter.InnerHolder> {
-    List<HomePageContent.DataBean> mData = new ArrayList<>();
+public class LinearItemContentAdapter extends RecyclerView.Adapter<LinearItemContentAdapter.InnerHolder> {
+    List<iLinearItemInfo> mData = new ArrayList<>();
     private OnListenItemClickListener mItemClickListener = null;
 
 
@@ -32,7 +31,7 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_pager_content, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_linear_goods_content, parent, false);
 
         return new InnerHolder(itemView);
 
@@ -43,7 +42,7 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
      */
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
-        HomePageContent.DataBean dataBean = mData.get(position);
+        iLinearItemInfo dataBean = mData.get(position);
         //绑定数据
         holder.setData(dataBean);
         //绑定监听
@@ -62,7 +61,7 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
         return mData.size();
     }
 
-    public void setData(List<HomePageContent.DataBean> contents) {
+    public void setData(List<? extends iLinearItemInfo> contents) {
         mData.clear();
         mData.addAll(contents);
         notifyDataSetChanged();
@@ -101,7 +100,7 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
             ButterKnife.bind(this, itemView);//把itemView绑定到InnerHolder这个类上
         }
 
-        public void setData(HomePageContent.DataBean dataBean) {
+        public void setData(iLinearItemInfo dataBean) {
             Context context = itemView.getContext();
             title.setText(dataBean.getTitle());
 //            LogUtils.d(this,"url--->"+dataBean.getPict_url());
@@ -115,12 +114,14 @@ public class HomePagerContentAdapter extends RecyclerView.Adapter<HomePagerConte
             int coverSize = (width > height ? width : height)/2;
 /*            LogUtils.d(this, "width----->" + width);
             LogUtils.d(this, "height----->" + height);*/
-            String coverPath = UrlUtils.getCoverPath(dataBean.getPict_url(), coverSize);
+            String coverPath = UrlUtils.getCoverPath(dataBean.getCover(), coverSize);
 //            LogUtils.d(this,"coverPath---->"+coverPath);
             Glide.with(context).load(coverPath).into(cover);
-            long couponAmount = dataBean.getCoupon_amount();//折扣
-            String originPrice = dataBean.getZk_final_price();//原价
+            long couponAmount = dataBean.getCouponAmount();//折扣
+            String originPrice = dataBean.getFinalPrice();//原价
             //LogUtils.d(this,"originPrice---->"+originPrice);
+            if (originPrice==null)
+                return;
             float resultPrice = Float.parseFloat(originPrice) - couponAmount;//券后价
             //LogUtils.d(this,"resultPrice---->"+resultPrice);
             finalPriceTv.setText(String.format("%.2f", resultPrice));

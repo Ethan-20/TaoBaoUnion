@@ -47,7 +47,7 @@ public class HomePageContent {
         this.data = data;
     }
 
-    public static class DataBean implements iBaseInfo{
+    public static class DataBean implements iLinearItemInfo{
         /**
          * category_id : 125088021
          * click_url : //s.click.taobao.com/t?e=m%3D2%26s%3DsjGzn9jQkvVw4vFB6t2Z2ueEDrYVVa64Dne87AjQPk9yINtkUhsv0I1QrW3SEAOZUnkorgY6vsBm5nS0VR3oT0KAZCke%2BMGJxC%2FP4%2FZfPFbcQmwDRwHnn1oN8CPq4PKMZiqtwk9j5QPwdDmZ4my9rElvb3ZIE1kpNgF569Gz6NWmtVviMLJmkmzh%2F5KYMlUEJC84pZo%2FKSIx32KM7Rsu3hV1pSXQlAddlpuyBQAs2bbqQouAeim%2BNCQiPPBIecGbe5EuX3OKigI69N9fawIVjsYOae24fhW0&scm=1007.19011.125585.0_13375&pvid=c402b4f2-368e-4229-a08c-2e0005340e3d&app_pvid=59590_33.7.86.44_851_1681629379007&ptl=floorId:13375;originalFloorId:13375;pvid:c402b4f2-368e-4229-a08c-2e0005340e3d;app_pvid:59590_33.7.86.44_851_1681629379007&union_lens=lensId%3AMAPI%401681629379%402107562c_0cab_18788ebfa59_5a03%4001%40eyJmbG9vcklkIjoxMzM3NX0ie%3Bscm%3A1007.19011.125585.0_13375
@@ -314,6 +314,16 @@ public class HomePageContent {
 
         public void setUser_type(long user_type) {
             this.user_type = user_type;
+        }
+
+        @Override
+        public String getFinalPrice() {
+            return zk_final_price;
+        }
+
+        @Override
+        public long getCouponAmount() {
+            return coupon_amount;
         }
 
         public long getVolume() {

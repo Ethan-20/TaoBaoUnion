@@ -117,7 +117,7 @@ public class SearchResult {
                     this.map_data = map_data;
                 }
 
-                public static class MapDataBean {
+                public static class MapDataBean implements iLinearItemInfo{
                     /**
                      * coupon_start_time : 2017-10-29
                      * coupon_end_time : 2017-10-29
@@ -252,7 +252,7 @@ public class SearchResult {
                     private Integer uv_sum_pre_sale;
                     private String x_id;
                     private String coupon_start_fee;
-                    private String coupon_amount;
+                    private Long coupon_amount;
                     private String item_description;
                     private String nick;
                     private String orig_price;
@@ -358,6 +358,11 @@ public class SearchResult {
                         this.num_iid = num_iid;
                     }
 
+                    @Override
+                    public String getCover() {
+                        return pict_url;
+                    }
+
                     public String getTitle() {
                         return title;
                     }
@@ -446,7 +451,17 @@ public class SearchResult {
                         this.commission_rate = commission_rate;
                     }
 
-                    public Integer getVolume() {
+                    @Override
+                    public String getFinalPrice() {
+                        return null;
+                    }
+
+                    @Override
+                    public long getCouponAmount() {
+                        return coupon_amount;
+                    }
+
+                    public long getVolume() {
                         return volume;
                     }
 
@@ -630,11 +645,11 @@ public class SearchResult {
                         this.coupon_start_fee = coupon_start_fee;
                     }
 
-                    public String getCoupon_amount() {
+                    public Long getCoupon_amount() {
                         return coupon_amount;
                     }
 
-                    public void setCoupon_amount(String coupon_amount) {
+                    public void setCoupon_amount(Long coupon_amount) {
                         this.coupon_amount = coupon_amount;
                     }
 

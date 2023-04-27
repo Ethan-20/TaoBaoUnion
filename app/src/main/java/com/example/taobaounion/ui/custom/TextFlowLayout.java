@@ -80,16 +80,19 @@ public class TextFlowLayout extends ViewGroup {
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        LogUtils.d(this,"onMeasure.......");
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (getChildCount() == 0) {
+            return;
+        }
+        LogUtils.d(this,"onMeasure.......");
         //单行(每一行的view)
         List<View> line = null;
         lines.clear();
         //减去padding值才行
         mSelfWidth = MeasureSpec.getSize(widthMeasureSpec)-getPaddingLeft()-getPaddingRight();
-        LogUtils.d(this,"mSelfWidth====>"+mSelfWidth);
+//        LogUtils.d(this,"mSelfWidth====>"+mSelfWidth);
         //测量
-        LogUtils.d(this,"onMeasure---->"+getChildCount());
+//        LogUtils.d(this,"onMeasure---->"+getChildCount());
         //测量孩子
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
@@ -118,6 +121,7 @@ public class TextFlowLayout extends ViewGroup {
                 }
             }
         }
+
         mItemHeight = getChildAt(0).getMeasuredHeight();
         //整个布局的高度是 lines的大小*个体的高度+lines+1 * 间距
         int selfHeight = (int)(lines.size()* mItemHeight +mItemVerticalSpace*(lines.size()+1)+0.5f);

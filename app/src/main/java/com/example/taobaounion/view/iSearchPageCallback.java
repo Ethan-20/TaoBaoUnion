@@ -1,6 +1,7 @@
 package com.example.taobaounion.view;
 
 import com.example.taobaounion.base.iBaseCallback;
+import com.example.taobaounion.model.domain.Histories;
 import com.example.taobaounion.model.domain.SearchRecommend;
 import com.example.taobaounion.model.domain.SearchResult;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface iSearchPageCallback extends iBaseCallback {
 
     //搜索历史结果
-    void onHistoriesLoaded(List<String> histories);
+    void onHistoriesLoaded(Histories histories);
 
 
     //历史记录删除完成
@@ -28,5 +29,5 @@ public interface iSearchPageCallback extends iBaseCallback {
     void onMoreLoadedEmpty();
 
     //显示推荐词列表
-    void onRecommendWordList(List<SearchRecommend.DataBean> recommendWords);
+    void onRecommendWordLoaded(List<SearchRecommend.DataBean> recommendWords);
 }

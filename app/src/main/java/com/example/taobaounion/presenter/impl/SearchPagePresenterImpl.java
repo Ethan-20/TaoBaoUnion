@@ -52,13 +52,9 @@ public class SearchPagePresenterImpl implements iSearchPagePresenter {
     @Override
     public void getHistories() {
         Histories histories = mJsonHelper.getValue(KEY_HISTORIES, Histories.class);
-        if (mSearchPageCallback!=null &&
-                histories != null &&
-                histories.getHistories() != null &&
-                histories.getHistories().size()!=0) {
-            mSearchPageCallback.onHistoriesLoaded(histories.getHistories());
+        if (mSearchPageCallback!=null) {
+            mSearchPageCallback.onHistoriesLoaded(histories);
         }
-
     }
 
     @Override
@@ -255,7 +251,7 @@ public class SearchPagePresenterImpl implements iSearchPagePresenter {
                 if (code== HttpURLConnection.HTTP_OK) {
                 //处理结果 这里如果没有返回结果，就不用管了捏
                     if (mSearchPageCallback != null) {
-                        mSearchPageCallback.onRecommendWordList(response.body().getData());
+                        mSearchPageCallback.onRecommendWordLoaded(response.body().getData());
                     }
                 }
             }
