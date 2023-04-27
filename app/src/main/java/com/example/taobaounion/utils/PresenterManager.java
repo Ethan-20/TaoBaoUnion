@@ -12,6 +12,12 @@ public class PresenterManager {
     private final iSelectedPagePresenter mSelectedPagePresenter;
     private final iOnSellPagePresenter mOnSellPagePresenter;
 
+    public iSearchPagePresenter getSearchPagePresenter() {
+        return mSearchPagePresenter;
+    }
+
+    private final iSearchPagePresenter mSearchPagePresenter;
+
     public iHomePresenter getHomePresenter() {
         return mHomePresenter;
     }
@@ -43,6 +49,7 @@ public class PresenterManager {
         mTicketPresenter = new TicketPagePresenterImpl();
         mSelectedPagePresenter = new SelectedPagePresenterImpl();
         mOnSellPagePresenter = new OnSellPagePresenterImpl();
+        mSearchPagePresenter = new SearchPagePresenterImpl();
     }
 
 

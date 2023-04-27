@@ -2,15 +2,25 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EFEEEE"
+    xmlns:sob="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.activity.TestActivity">
 
 
     <com.example.taobaounion.ui.custom.LoadingView
+        android:id="@+id/test_loading"
         android:layout_width="33dp"
         android:layout_height="33dp"/>
+
+    <com.example.taobaounion.ui.custom.TextFlowLayout
+        sob:horizontalSpace = "20px"
+        sob:verticalSpace = "20px"
+        android:layout_below="@id/test_loading"
+        android:id="@+id/test_text_flow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <RadioGroup
         android:id="@+id/test_navigation_bar"

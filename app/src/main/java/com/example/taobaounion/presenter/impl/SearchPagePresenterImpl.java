@@ -15,11 +15,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SearchPagePresenter implements iSearchPagePresenter {
+public class SearchPagePresenterImpl implements iSearchPagePresenter {
 
     private final Api mApi;
     private final JsonCacheUtils mJsonHelper;
@@ -33,7 +32,7 @@ public class SearchPagePresenter implements iSearchPagePresenter {
     private static final int DEFAULT_HISTORIES_SIZE = 10;
     private static final int historyMaxSize = DEFAULT_HISTORIES_SIZE;
     private String mCurrentKeyWord = null;
-    public SearchPagePresenter() {
+    public SearchPagePresenterImpl() {
         Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
         mApi = retrofit.create(Api.class);
         mJsonHelper = JsonCacheUtils.getInstance();
@@ -95,14 +94,14 @@ public class SearchPagePresenter implements iSearchPagePresenter {
         if (histories == null) {
             histories = new Histories();
         }
-        histories.setHistories(historiesList);
         //对个数进行限制（这里的逻辑有问题，应该是删除掉最早加入的记录）
-        if (historiesList.size()>historyMaxSize) {
-            historiesList = historiesList.subList(0, historyMaxSize);
+        if (historiesList.size()==historyMaxSize) {
+            historiesList = historiesList.subList(0, historyMaxSize-1);
         }
         //添加记录
         historiesList.add(history);
-        mJsonHelper.saveCache(KEY_HISTORIES,historiesList);
+        histories.setHistories(historiesList);
+        mJsonHelper.saveCache(KEY_HISTORIES,histories);
     }
 
     @Override

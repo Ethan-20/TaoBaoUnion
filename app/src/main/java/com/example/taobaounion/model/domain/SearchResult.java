@@ -48,9 +48,18 @@ public class SearchResult {
     }
 
     public static class DataBean {
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "tbk_dg_material_optional_response=" + tbk_dg_material_optional_response +
+                    '}';
+        }
+
         /**
          * tbk_dg_material_optional_response : {"total_results":1212,"result_list":{"map_data":[{"coupon_start_time":"2017-10-29","coupon_end_time":"2017-10-29","info_dxjh":"{\"19013551\":\"2850\",\"74510538\":\"2550\"}","tk_total_sales":"11","tk_total_commi":"323","coupon_id":"d62db1ab8d9546b1bf0ff49bda5fc33b","num_iid":"556633720749","title":"毛呢阔腿裤港味复古女裤子秋冬九分裤萝卜裤显瘦高腰韩版2017新款","pict_url":"https://img.alicdn.com/bao/uploaded/i4/745957850/TB1WzSRmV9gSKJjSspbXXbeNXXa_!!0-item_pic.jpg","small_images":{"string":["https://img.alicdn.com/i4/3077291146/TB2NA3poDnI8KJjSszgXXc8ApXa_!!3077291146.jpg"]},"reserve_price":"102.00","zk_final_price":"88.00","user_type":1,"provcity":"杭州","item_url":"https://item.taobao.com/item.htm?id=564591813536","include_mkt":"false","include_dxjh":"false","commission_rate":"1550表示15.5%","volume":123,"seller_id":232332,"shop_title":"xx旗舰店","coupon_total_count":22323,"coupon_remain_count":111,"coupon_info":"满299元减20元","commission_type":"MKT表示营销计划，SP表示定向计划，COMMON表示通用计划","shop_dsr":13,"coupon_share_url":"uland.xxx","url":"s.click.xxx","level_one_category_name":"女装","level_one_category_id":20,"category_name":"连衣裙","category_id":162201,"short_title":"xxsd","white_image":"https://img.alicdn.com/bao/uploaded/i4/745957850/TB1WzSRmV9gSKJjSspbXXbeNXXa_!!0-item_pic.jpg","oetime":"2018-08-21 11:23:43","ostime":"2018-08-21 11:23:43","jdd_num":10,"jdd_price":"5","uv_sum_pre_sale":23,"x_id":"uESS0mv8JvfJRMKlIgCD5At9VuHVBXoqBRihfQlo4ybLiKygRlqiN4eoxoZDfe38uSogWy6GB971jD2N8tLuuc","coupon_start_fee":"29.00","coupon_amount":"10.00","item_description":"季凉被 全棉亲肤","nick":"旗舰店","orig_price":"25","total_stock":5555,"sell_num":1111,"stock":4444,"tmall_play_activity_info":"前n件x折","item_id":"5678899993","real_post_fee":"0.00","lock_rate":"1567440000000","lock_rate_end_time":1567440000000,"lock_rate_start_time":1567440000000,"presale_discount_fee_text":"付定金立减5元","presale_tail_end_time":1567440000000,"presale_tail_start_time":1567440000000,"presale_end_time":1567440000000,"presale_start_time":1567440000000,"presale_deposit":"100","ysyl_tlj_send_time":"2019-11-10 21:59:59","ysyl_commission_rate":"2030（表示20.3%）","ysyl_tlj_face":"0.6","ysyl_click_url":"https://uland.taobao.com/coupon/edetail?e=nqUNB1NOF3Bt3vqbdXnGloankzPYmeEFkgNrw6YHQf9pZTj41Orn8MwBAs06HAOzqQomYNedOiHDYPmqkFXqLR0HgBdG%2FDDL%2F1M%2FBw7Sf%2FesGXLf%2BqX4cbeC%2F2cR0p0NlWH0%2BknxpnCJJP%2FQkZSsyo1HvKjXo4uz&pid=mm_26381042_12970066_52864659&af=1","ysyl_tlj_use_end_time":"2019-11-10 21:59:59","ysyl_tlj_use_start_time":"2019-11-10 21:59:59","sale_begin_time":"1567440000000","sale_end_time":"1567440000000","distance":"300","usable_shop_id":"10001","usable_shop_name":"饿了么卡券专营店","sale_price":"168","kuadian_promotion_info":"[\"每100减20\",\"每200减50\"]","superior_brand":"1","reward_info":1,"is_brand_flash_sale":"1","localization_extend":"","match_score":"10.0","commi_score":"20.0","hot_flag":"1","topn_info":{"topn_quantity":3000,"topn_total_count":3000,"topn_end_time":"1937297392332","topn_start_time":"1937297392332","topn_rate":"30"},"bybt_info":{"bybt_brand_logo":"//img.alicdn.com/bao/uploaded/i4/745957850/TB1WzSRmV9gSKJjSspbXXbeNXXa_!!0-item_pic.jpg","bybt_pic_url":"//img.alicdn.com/bao/uploaded/i4/745957850/TB1WzSRmV9gSKJjSspbXXbeNXXa_!!0-item_pic.jpg","bybt_item_tags":{"string":["[\"https://gw.alicdn.com/tfs/TB1CvN50KH2gK0jSZJnXXaT1FXa-167-42.png?getAvatar=avatar\"","\"https://gw.alicdn.com/tfs/TB10rZqkCR26e4jSZFEXXbwuXXa-132-42.png?getAvatar=avatar\"]"]},"bybt_coupon_amount":"10.00","bybt_show_price":"100.00","bybt_lowest_price":"200.00","bybt_end_time":"1559750399000","bybt_start_time":"1559750399000"},"tt_sold_count":"200+","maifan_promotion":{"maifan_promotion_end_time":"1559750399000","maifan_promotion_start_time":"1559750399000","maifan_promotion_discount":"200","maifan_promotion_condition":"100"},"cpa_reward_type":"0 1 2","cpa_reward_amount":"1.11 2.22 3.21","activity_id":"188","rank_page_url":"s.click.xxx","item_search_type":"1-1","sp_campaign_list":{"sp_campaign":[{"sp_cid":"123","sp_name":"定向计划活动1","sp_rate":"1550表示15.5%","sp_lock_status":"0","sp_apply_link":"http://pub.alimama.com/portal/promo/shop/campaign/detail.htm?mode=info&campaignId=1000492470&creatorId=98836808&breadcrumb=false","sp_status":"1"}]}}]},"page_result_key":"abcde"}
          */
+
+
 
         private TbkDgMaterialOptionalResponseBean tbk_dg_material_optional_response;
 
@@ -221,7 +230,7 @@ public class SearchResult {
                     private String include_dxjh;
                     private String commission_rate;
                     private Integer volume;
-                    private Integer seller_id;
+                    private String seller_id;
                     private String shop_title;
                     private Integer coupon_total_count;
                     private Integer coupon_remain_count;
@@ -445,11 +454,11 @@ public class SearchResult {
                         this.volume = volume;
                     }
 
-                    public Integer getSeller_id() {
+                    public String getSeller_id() {
                         return seller_id;
                     }
 
-                    public void setSeller_id(Integer seller_id) {
+                    public void setSeller_id(String seller_id) {
                         this.seller_id = seller_id;
                     }
 
@@ -1305,5 +1314,15 @@ public class SearchResult {
                 }
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SearchResult{" +
+                "success=" + success +
+                ", code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
     }
 }

@@ -28,7 +28,7 @@ public class JsonCacheUtils {
     //对搜索记录进行保存
     public void saveCache(String key, Object value) {
         //这duration = -1 是真没看懂
-        this.saveCache(key,value,-1);
+        this.saveCache(key,value,100000000);
     }
 
     public void saveCache(String key, Object value, long duration) {
@@ -62,7 +62,7 @@ public class JsonCacheUtils {
         CacheWithDuration cacheWithDuration = mGson.fromJson(valueWithDuration, CacheWithDuration.class);
         //对时间判断
         long duration = cacheWithDuration.getDuration();
-        if (duration ==-1 || duration - System.currentTimeMillis()<0) {
+        if (duration ==-1|| duration - System.currentTimeMillis()<0) {
             //过期了
             return null;
         }else{
@@ -70,6 +70,7 @@ public class JsonCacheUtils {
             //TODO 这里没看懂
             //3、从CacheWithDuration拿到json格式的缓存数据
             String cache = cacheWithDuration.getCache();
+            LogUtils.d(this,"cache----->"+cache);
             //4、把缓存数据从json转回原来的格式
             T result = mGson.fromJson(cache, clazz);
             return result;

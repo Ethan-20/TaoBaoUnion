@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/navigation_bar_color.xml" value="0.234" />
+        <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/selector_flow_text_bg.xml" value="0.1" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/selector_navigation_home.xml" value="0.234" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/selector_navigation_red_packet.xml" value="0.234" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/selector_navigation_search.xml" value="0.234" />
@@ -12,6 +13,8 @@
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/shap_tab_bg.xml" value="0.117" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/shape_button_bg.xml" value="0.113" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/shape_edit_box_bg.xml" value="0.176" />
+        <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/shape_flow_text_bg.xml" value="0.113" />
+        <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/shape_flow_text_bg_press.xml" value="0.1" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/shape_indicator_point.xml" value="0.136" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/shape_indicator_point_normal.xml" value="0.117" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/drawable/shape_ticket_edit_box_bg.xml" value="0.113" />
@@ -21,6 +24,7 @@
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/layout/activity_ticket.xml" value="0.264" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/layout/base_fragment_layout.xml" value="0.2234375" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/layout/base_home_fragment_layout.xml" value="0.2" />
+        <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/layout/flow_text_view.xml" value="0.2" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/layout/fragment_empty.xml" value="0.2234375" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/layout/fragment_error.xml" value="0.264" />
         <entry key="..\:/AndroidProject/TaobaoUnion2/app/src/main/res/layout/fragment_home.xml" value="0.1" />
