@@ -147,6 +147,7 @@ public class SearchFragment extends BaseFragment implements iSearchPageCallback,
             else{
                 //TODO 这里是点击了取消 回到历史界面
                 KeyBoardUtils.hide(getContext(),v);
+                mSearchInputBox.clearFocus();
                 switch2HistoryPage();
             }
         });
@@ -291,9 +292,6 @@ public class SearchFragment extends BaseFragment implements iSearchPageCallback,
                 getTbk_dg_material_optional_response().
                 getResult_list().
                 getMap_data());
-
-
-
     }
 
     @Override
@@ -329,8 +327,14 @@ public class SearchFragment extends BaseFragment implements iSearchPageCallback,
     }
 
     private void toSearch(String text) {
-        mSearchResultList.scrollToPosition(0);
-        mSearchInputBox.setText(text);
-        mSearchPagePresenter.doSearch(text);
+        if (mSearchPagePresenter != null) {
+            mSearchResultList.scrollToPosition(0);
+            mSearchInputBox.setText(text);
+//            mSearchInputBox.setFocusable(true);
+            mSearchInputBox.requestFocus();
+            mSearchInputBox.setSelection(text.length());
+            mSearchPagePresenter.doSearch(text);
+        }
+
     }
 }

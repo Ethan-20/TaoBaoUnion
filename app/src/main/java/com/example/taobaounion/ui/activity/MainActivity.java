@@ -13,7 +13,7 @@ import com.example.taobaounion.utils.LogUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements iMainActivity{
 
     private static final String TAG = "MainActivity";
     @BindView(R.id.main_navigation_bar)
@@ -111,6 +111,13 @@ public class MainActivity extends BaseActivity {
         lastFragment = targetFragment;
        // fragmentTransaction.replace(R.id.main_page_container, targetFragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void switch2Search() {
+//        switchFragment(mSearchFragment);
+        //还要切换导航栏的选中项
+        mNavigationView.setSelectedItemId(R.id.search);
     }
 
     /**

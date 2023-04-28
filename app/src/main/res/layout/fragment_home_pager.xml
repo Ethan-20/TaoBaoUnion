@@ -41,7 +41,7 @@
                         <com.example.taobaounion.ui.custom.AutoLoopViewPager
                             android:id="@+id/looper_pager"
                             android:layout_width="match_parent"
-                            sob:duration = "3000"
+                            sob:duration="3000"
                             android:overScrollMode="never"
                             android:layout_height="125dp" />
 
