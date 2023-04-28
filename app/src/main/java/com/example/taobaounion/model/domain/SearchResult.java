@@ -453,12 +453,16 @@ public class SearchResult {
 
                     @Override
                     public String getFinalPrice() {
-                        return null;
+                        return zk_final_price;
                     }
 
                     @Override
-                    public long getCouponAmount() {
-                        return coupon_amount;
+                    public Long getCouponAmount() {
+                        long myValue=0;
+                        if (coupon_amount != null) {
+                             myValue = coupon_amount.longValue();
+                        }
+                        return myValue;
                     }
 
                     public long getVolume() {
@@ -534,11 +538,11 @@ public class SearchResult {
                     }
 
                     public String getUrl() {
-                        return url;
+                        return coupon_share_url;
                     }
 
                     public void setUrl(String url) {
-                        this.url = url;
+                        this.url = coupon_share_url;
                     }
 
                     public String getLevel_one_category_name() {

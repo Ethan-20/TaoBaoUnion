@@ -16,6 +16,7 @@ import com.example.taobaounion.R;
 import com.example.taobaounion.model.domain.HomePageContent;
 import com.example.taobaounion.model.domain.iBaseInfo;
 import com.example.taobaounion.model.domain.iLinearItemInfo;
+import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.UrlUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -67,7 +68,7 @@ public class LinearItemContentAdapter extends RecyclerView.Adapter<LinearItemCon
         notifyDataSetChanged();
     }
 
-    public void addData(List<HomePageContent.DataBean> contents) {
+    public void addData(List<? extends iLinearItemInfo> contents) {
         //添加之前拿到原来的size
         int oldSize = mData.size();
         mData.addAll(contents);
@@ -101,9 +102,10 @@ public class LinearItemContentAdapter extends RecyclerView.Adapter<LinearItemCon
         }
 
         public void setData(iLinearItemInfo dataBean) {
+        try{
             Context context = itemView.getContext();
             title.setText(dataBean.getTitle());
-//            LogUtils.d(this,"url--->"+dataBean.getPict_url());
+//          LogUtils.d(this,"url--->"+dataBean.getPict_url());
             /**
              * //gw.alicdn.com/bao/uploaded/i1/2793447635/O1CN01EkSJXR26GsmzXs0Wx_!!0-item_pic.jpg
              *  返回值如上，没有协议开头，需要手动添加协议
@@ -117,19 +119,22 @@ public class LinearItemContentAdapter extends RecyclerView.Adapter<LinearItemCon
             String coverPath = UrlUtils.getCoverPath(dataBean.getCover(), coverSize);
 //            LogUtils.d(this,"coverPath---->"+coverPath);
             Glide.with(context).load(coverPath).into(cover);
-            long couponAmount = dataBean.getCouponAmount();//折扣
+            Long couponAmount = 0l;//折扣
+            couponAmount = dataBean.getCouponAmount();
             String originPrice = dataBean.getFinalPrice();//原价
             //LogUtils.d(this,"originPrice---->"+originPrice);
-            if (originPrice==null)
-                return;
             float resultPrice = Float.parseFloat(originPrice) - couponAmount;//券后价
             //LogUtils.d(this,"resultPrice---->"+resultPrice);
+            LogUtils.d(this,String.format("%.2f", resultPrice));
             finalPriceTv.setText(String.format("%.2f", resultPrice));
             offPriceTv.setText(String.format(context.getString(R.string.text_goods_off_price), couponAmount));
             originPriceTv.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             originPriceTv.setText(String.format(context.getString(R.string.text_goods_origin_price), originPrice));
-            //LogUtils.d(this,"getVolume---->"+dataBean.getVolume());
+            LogUtils.d(this,"getVolume---->"+dataBean.getVolume());
             sellsCountTv.setText(String.format(context.getString(R.string.text_goods_sell_count), dataBean.getVolume()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         }
     }
 

@@ -322,7 +322,7 @@ public class HomePageContent {
         }
 
         @Override
-        public long getCouponAmount() {
+        public Long getCouponAmount() {
             return coupon_amount;
         }
 

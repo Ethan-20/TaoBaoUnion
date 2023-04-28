@@ -10,10 +10,10 @@
         android:layout_height="40dp">
 
         <TextView
+            android:id="@+id/search_btn"
             android:textColor="@color/White"
-            android:id="@+id/cancel_btn"
             android:paddingLeft="20dp"
-            android:paddingRight="10dp"
+            android:paddingRight="20dp"
             android:layout_alignParentRight="true"
             android:text="取消"
             android:layout_width="wrap_content"
@@ -21,7 +21,11 @@
             android:layout_centerInParent="true" />
 
         <EditText
-            android:layout_toLeftOf="@+id/cancel_btn"
+            android:id="@+id/search_edit_box"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:layout_toLeftOf="@+id/search_btn"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
@@ -32,14 +36,22 @@
             android:background="@drawable/shape_edit_box_bg"
             android:layout_centerInParent="true" />
 
-
+        <ImageView
+            android:id="@+id/search_clean_btn"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@id/search_btn"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@mipmap/remove_icon"
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/base_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </FrameLayout>
 
 </LinearLayout>

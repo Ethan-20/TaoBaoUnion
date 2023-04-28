@@ -92,7 +92,7 @@ public class SearchPagePresenterImpl implements iSearchPagePresenter {
         }
         //对个数进行限制（这里的逻辑有问题，应该是删除掉最早加入的记录）
         if (historiesList.size()==historyMaxSize) {
-            historiesList = historiesList.subList(0, historyMaxSize-1);
+            historiesList = historiesList.subList(1, historyMaxSize);
         }
         //添加记录
         historiesList.add(history);
@@ -183,8 +183,8 @@ public class SearchPagePresenterImpl implements iSearchPagePresenter {
     public void loadMore() {
         mCurrentPage++;
         //进行搜索
-        if (mCurrentKeyWord != null) {
-            mSearchPageCallback.onEmpty();
+        if (mCurrentKeyWord == null) {
+            mSearchPageCallback.onMoreLoadedEmpty();
         }
         else{
             //做搜索的事情

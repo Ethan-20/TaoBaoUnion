@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.taobaounion.R;
 import com.example.taobaounion.utils.LogUtils;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +35,10 @@ public class TextFlowLayout extends ViewGroup {
         return mItemVerticalSpace;
     }
 
+    public int getContentSize(){
+        return mTextList.size();
+    }
+
     private List<String> mTextList = new LinkedList<>();
 
     public TextFlowLayout(Context context) {
@@ -56,18 +61,16 @@ public class TextFlowLayout extends ViewGroup {
     }
 
     public void setTextList(List<String> textList) {
-        this.mTextList = textList;
+        removeAllViews();
+        this.mTextList.clear();
+        this.mTextList.addAll(textList);
+        Collections.reverse(this.mTextList);
         //添加内容
         for (String text : mTextList) {
             //LayoutInflater.from(getContext()).inflate(R.layout.flow_text_view, this, true);等价于下面两条语句
             TextView item = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.flow_text_view, this, false);
             item.setText(text);
-            item.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mItemClickListener.onFlowItemClick(text);
-                }
-            });
+            item.setOnClickListener(v -> mItemClickListener.onFlowItemClick(text));
             addView(item);
         }
     }

@@ -77,12 +77,10 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
         super.onPause();
         //不可见的时候结束轮播
         looperPager.stopLoop();
-
     }
 
     //在adapter中需要根据category来生成HomePagerFragment,所以在这里创建一个方法来返回HomePagerFragment
     public static HomePagerFragment newInstance(Categories.DataBean category) {
-
         HomePagerFragment homePagerFragment = new HomePagerFragment();
         //通过bundle来保存要传输的数据
         Bundle bundle = new Bundle();

@@ -11,7 +11,7 @@ public interface iLinearItemInfo extends iBaseInfo {
      * 获取优惠价格
      * @return
      */
-    long getCouponAmount();
+    Long getCouponAmount();
 
     /**
      * 获取销量
