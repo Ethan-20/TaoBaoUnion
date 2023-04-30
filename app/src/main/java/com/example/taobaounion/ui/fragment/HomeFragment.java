@@ -1,10 +1,11 @@
 package com.example.taobaounion.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
@@ -14,14 +15,13 @@ import com.example.taobaounion.R;
 import com.example.taobaounion.base.BaseFragment;
 import com.example.taobaounion.model.domain.Categories;
 import com.example.taobaounion.presenter.iHomePresenter;
-import com.example.taobaounion.presenter.impl.HomePresenterImpl;
-import com.example.taobaounion.ui.activity.MainActivity;
 import com.example.taobaounion.ui.activity.iMainActivity;
 import com.example.taobaounion.ui.adapter.HomePagerAdapter;
 import com.example.taobaounion.utils.LogUtils;
 import com.example.taobaounion.utils.PresenterManager;
 import com.example.taobaounion.view.iHomeCallback;
 import com.google.android.material.tabs.TabLayout;
+import com.tamsiree.rxfeature.activity.ActivityScanerCode;
 import org.jetbrains.annotations.NotNull;
 
 public class HomeFragment extends BaseFragment implements iHomeCallback {
@@ -36,6 +36,11 @@ public class HomeFragment extends BaseFragment implements iHomeCallback {
 
     @BindView(R.id.home_pager)
     public ViewPager mHomePager;
+
+    @BindView(R.id.scan_icon)
+    public ImageView mScanBtn;
+
+
     private HomePagerAdapter mHomePagerAdapter;
 
     @Nullable
@@ -75,6 +80,17 @@ public class HomeFragment extends BaseFragment implements iHomeCallback {
             FragmentActivity activity = getActivity();
             if (activity instanceof iMainActivity) {
                 ((iMainActivity)activity).switch2Search();
+            }
+        });
+    }
+
+    @Override
+    protected void initListener() {
+        mScanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到扫码界面
+                startActivity(new Intent(getContext(), ActivityScanerCode.class));
             }
         });
     }
