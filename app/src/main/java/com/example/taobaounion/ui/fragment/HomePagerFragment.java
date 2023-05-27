@@ -1,5 +1,6 @@
 package com.example.taobaounion.ui.fragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -349,6 +350,7 @@ public class HomePagerFragment extends BaseFragment implements iCategoryPagerCal
                 point.setBackgroundResource(R.drawable.shape_indicator_point_normal);
             }
             looperPointContainer.addView(point);
+
         }
     }
 

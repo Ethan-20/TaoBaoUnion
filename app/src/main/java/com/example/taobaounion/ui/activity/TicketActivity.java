@@ -4,11 +4,13 @@ import android.content.*;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import butterknife.BindView;
 import com.bumptech.glide.Glide;
@@ -46,7 +48,6 @@ public class TicketActivity extends BaseActivity implements iTicketPageCallback 
     public TextView mLoadRetry;
 
     private boolean mHasTaobaoApp = false;
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)

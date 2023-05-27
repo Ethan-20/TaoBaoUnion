@@ -26,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         initPresenter();
     }
 
+
     private void setGreyTheme() {
         ColorMatrix cm = new ColorMatrix();
         cm.setSaturation(0);
